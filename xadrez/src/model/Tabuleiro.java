@@ -17,7 +17,11 @@ public class Tabuleiro {
 	}
 	
 	public static Boolean isOutOfBounds(int x, int y) {
-		return (x >= 0 && x <= 7 && y >= 0 && y <= 7);
+		return !(x >= 0 && x <= 7 && y >= 0 && y <= 7);
+	}
+	
+	public static Peca getPecaIn(int x, int y) {
+		return gameMatrix[x][y];
 	}
 	
 }
