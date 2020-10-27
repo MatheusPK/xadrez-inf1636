@@ -12,8 +12,8 @@ public class Main {
 		
 		Tabuleiro.desenhaTabuleiro();
 		
-		Peca p = Tabuleiro.getPecaIn(3, 2);
-		int [][] mov = p.movimentosDisponiveis(3, 2);
+		Peca p = Tabuleiro.getPecaIn(2, 3);
+		int [][] mov = p.movimentosDisponiveis(2, 3);
 		for (int [] pos : mov) {
 			System.out.printf("(%d, %d)\n", pos[0], pos[1]);
 		}
