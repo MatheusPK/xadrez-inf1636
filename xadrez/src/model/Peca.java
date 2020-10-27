@@ -29,7 +29,7 @@ public abstract class Peca {
 		tab[0][0] = new Torre(PecaCor.Branco);
 		tab[1][0] = new Cavalo(PecaCor.Branco);	
 		tab[2][0] = new Bispo(PecaCor.Branco);
-		tab[3][0] = new Rei(PecaCor.Branco);
+		tab[3][2] = new Rei(PecaCor.Branco);
 		tab[4][0] = new Rainha(PecaCor.Branco);
 		tab[5][0] = new Bispo(PecaCor.Branco);
 		tab[6][0] = new Cavalo(PecaCor.Branco);
@@ -74,6 +74,36 @@ public abstract class Peca {
 			}
 			x += dx;
 			y += dy;
+		}
+		
+		return c;
+	}
+	
+	protected int percorre(int x, int y, int dx, int dy, int limit, Peca[][] tab, int[][]mov, int count) {
+		
+		int c = count;
+		int vezes = 1;
+		
+		if (limit <= 0) return c;
+		
+		x += dx;
+		y += dy;
+		while (!Tabuleiro.isOutOfBounds(x, y) && vezes <= limit) {
+			Peca p = tab[x][y];
+			if (p == null){
+				mov[c] = new int[]{x, y}; 
+				c++;
+			}
+			else {
+				if (this.cor != p.cor) {
+					mov[c] = new int[]{x, y}; 
+					c++;
+				}
+				break;
+			}
+			x += dx;
+			y += dy;
+			vezes++;
 		}
 		
 		return c;
