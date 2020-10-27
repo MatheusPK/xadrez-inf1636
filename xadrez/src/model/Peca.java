@@ -54,4 +54,26 @@ public abstract class Peca {
 		}
 		
 	}
+	
+	protected int percorre(int x, int y, int dx, int dy, Peca[][] tab, int[][]mov, int count) {
+		int c = count;
+		while (!Tabuleiro.isOutOfBounds(x, y)) {
+			x += dx;
+			y += dy;
+			Peca p = tab[x][y];
+			if (p == null){
+				mov[c] = new int[]{x, y}; 
+				c++;
+			}
+			else {
+				if (this.cor != p.cor) {
+					mov[c] = new int[]{x, y}; 
+					c++;
+				}
+				break;
+			}
+		}
+		
+		return c;
+	}
 }
