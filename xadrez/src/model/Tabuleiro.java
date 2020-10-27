@@ -24,4 +24,58 @@ public class Tabuleiro {
 		return gameMatrix[x][y];
 	}
 	
+	public static void desenhaTabuleiro() {
+		for(int i = 7; i >= 0; i --) {
+			System.out.printf("%d---", i);
+			for(int j = 0; j < 8; j ++) {
+				Peca p = gameMatrix[j][i];
+				String c = "";
+				if (p == null) {
+					c = "x";
+				}
+				else if (p instanceof Torre) {
+					c = "t";
+				}
+				else if (p instanceof Cavalo) {
+					c = "c";
+				}
+				else if (p instanceof Bispo) {
+					c = "b";
+				}
+				else if (p instanceof Rei) {
+					c = "r";
+				}
+				else if (p instanceof Rainha) {
+					c = "q";
+				}
+				else if (p instanceof Peao) {
+					c = "p";
+				}
+				
+				if (p != null && p.getCor() == PecaCor.Branco) {
+					c = c.toUpperCase();
+				}
+				
+				System.out.printf("%s ", c);
+			}
+			System.out.println();
+		}
+		
+		System.out.printf("    ");
+		for(int j = 0; j < 8; j ++) {
+			System.out.printf("| ");
+		}
+		System.out.println();
+		System.out.printf("    ");
+		for(int j = 0; j < 8; j ++) {
+			System.out.printf("%d ", j);
+		}
+		System.out.println();
+		
+		
+	}
+	
+	
+	
+	
 }

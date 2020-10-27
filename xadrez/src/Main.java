@@ -10,11 +10,13 @@ public class Main {
 		
 		Peca.PecaFactory();
 		
-		Peca p = Tabuleiro.getPecaIn(0, 0);
-		int [][] mov = p.movimentosDisponiveis(0, 0);
-		for (int [] pos : mov) {
-			System.out.printf("(%d, %d)\n", pos[0], pos[1]);
-		}
+		Tabuleiro.desenhaTabuleiro();
+		
+//		Peca p = Tabuleiro.getPecaIn(0, 0);
+//		int [][] mov = p.movimentosDisponiveis(0, 0);
+//		for (int [] pos : mov) {
+//			System.out.printf("(%d, %d)\n", pos[0], pos[1]);
+//		}
 		
 		
 		
