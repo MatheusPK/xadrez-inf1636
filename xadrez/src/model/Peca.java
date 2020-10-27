@@ -27,16 +27,16 @@ public abstract class Peca {
 		// Pecas Brancas
 		
 		tab[0][0] = new Torre(PecaCor.Branco);
-		tab[2][3] = new Cavalo(PecaCor.Branco);	
+		tab[1][0] = new Cavalo(PecaCor.Branco);	
 		tab[2][0] = new Bispo(PecaCor.Branco);
 		tab[3][0] = new Rei(PecaCor.Branco);
 		tab[4][0] = new Rainha(PecaCor.Branco);
 		tab[5][0] = new Bispo(PecaCor.Branco);
 		tab[6][0] = new Cavalo(PecaCor.Branco);
 		tab[7][0] = new Torre(PecaCor.Branco);	
-//		for(int i = 0; i < 8; i++) {
-//			tab[i][1] = new Peao(PecaCor.Branco);
-//		}
+		for(int i = 0; i < 8; i++) {
+			tab[i][1] = new Peao(PecaCor.Branco);
+		}
 		
 		// Pecas Pretas
 		
