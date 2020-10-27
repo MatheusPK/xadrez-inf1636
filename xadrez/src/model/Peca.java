@@ -34,9 +34,9 @@ public abstract class Peca {
 		tab[5][0] = new Bispo(PecaCor.Branco);
 		tab[6][0] = new Cavalo(PecaCor.Branco);
 		tab[7][0] = new Torre(PecaCor.Branco);	
-		for(int i = 0; i < 8; i++) {
-			tab[i][1] = new Peao(PecaCor.Branco);
-		}
+//		for(int i = 0; i < 8; i++) {
+//			tab[i][1] = new Peao(PecaCor.Branco);
+//		}
 		
 		// Pecas Pretas
 		
@@ -77,5 +77,14 @@ public abstract class Peca {
 		}
 		
 		return c;
+	}
+	
+	protected int [][] reduzArray(int[][] oldArray, int qnt){
+		int [][] newArray = new int[qnt][2];
+		for (int i = 0; i < qnt; i++) {
+			newArray[i] = oldArray[i].clone();
+		}
+		oldArray = null;
+		return newArray;
 	}
 }

@@ -32,14 +32,9 @@ public class Torre extends Peca {
 		movCount = percorre(x, y, 0, 1, tab, movimentos, movCount);
 		movCount = percorre(x, y, 0, -1, tab, movimentos, movCount);
 		
-		System.out.println(movCount);
+//		System.out.println(movCount);
 		
-		int [][] newMovimentos = new int[movCount][2];
-		for (int i = 0; i < movCount; i++) {
-			newMovimentos[i] = movimentos[i].clone();
-		}
-		
-		return newMovimentos;
+		return reduzArray(movimentos, movCount);
 	}
 	
 }
