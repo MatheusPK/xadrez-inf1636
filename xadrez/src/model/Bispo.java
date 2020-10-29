@@ -15,7 +15,7 @@ public class Bispo extends Peca{
 		movCount = percorre(x, y, -1, 1, tab, movimentos, movCount);
 		movCount = percorre(x, y, -1, -1, tab, movimentos, movCount);
 		movCount = percorre(x, y, 1, -1, tab, movimentos, movCount);
-		// minha pika
+		// oiiee
 		
 		System.out.println(movCount);
 		
