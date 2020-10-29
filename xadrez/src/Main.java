@@ -7,6 +7,8 @@ public class Main {
 //		System.out.println("com factory");
 //		Peca.PecaFactory();
 //		Tabuleiro.printaTabuleiro();
+		// foi o theo
+		//funciona pla
 		
 		Peca.PecaFactory();
 		
@@ -16,9 +18,6 @@ public class Main {
 		int [][] mov = p.movimentosDisponiveis(1, 6);
 		for (int [] pos : mov) {
 			System.out.printf("(%d, %d)\n", pos[0], pos[1]);
-		}
-		
-		
-		
+		}	
 	}
 }
