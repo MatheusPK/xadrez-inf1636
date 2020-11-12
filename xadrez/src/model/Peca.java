@@ -13,20 +13,32 @@ public abstract class Peca {
 	protected PecaCor cor; 
 	
 	//posicao x y da peca 
-	//(apenas para facilitar acesso, o que define sua real posicao é seu ij da matrix do tabuleiro)
-	protected int x;
-	protected int y;
+	//(apenas para facilitar acesso interno, o que define sua real posicao é seu ij da matrix do tabuleiro)
+	protected int x = 0;
+	protected int y = 0;
 	
 	//construtor
 	protected Peca(PecaCor cor) {
 		this.cor = cor;
 	}
+	
+	//construtor2
+	protected Peca(PecaCor cor, int x, int y) {
+		this.cor = cor;
+		this.x = x;
+		this.y = y;
+	}
 	public PecaCor getCor() {
 		return cor;
 	}
 	
+	protected void atualizaPos(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	//metodos abstratos
-	public abstract int[][] movimentosDisponiveis(int x, int y);
+	public abstract int[][] movimentosDisponiveis();
 
 	//peca factory
 	public static void PecaFactory() {
@@ -34,39 +46,44 @@ public abstract class Peca {
 		
 		// Pecas Brancas
 		
-		tab[0][0] = new Torre(PecaCor.Branco);
-		tab[1][0] = new Cavalo(PecaCor.Branco);	
-		tab[2][0] = new Bispo(PecaCor.Branco);
-		tab[3][0] = new Rei(PecaCor.Branco);
-		tab[4][0] = new Rainha(PecaCor.Branco);
-		tab[5][0] = new Bispo(PecaCor.Branco);
-		tab[6][0] = new Cavalo(PecaCor.Branco);
-		tab[7][0] = new Torre(PecaCor.Branco);	
+		tab[0][0] = new Torre(PecaCor.Branco, 0, 0);
+		tab[1][0] = new Cavalo(PecaCor.Branco, 1, 0);	
+		tab[2][0] = new Bispo(PecaCor.Branco, 2, 0);
+		tab[3][0] = new Rei(PecaCor.Branco, 3, 0);
+		tab[4][0] = new Rainha(PecaCor.Branco, 4, 0);
+		tab[5][0] = new Bispo(PecaCor.Branco, 5, 0);
+		tab[6][0] = new Cavalo(PecaCor.Branco, 6, 0);
+		tab[7][0] = new Torre(PecaCor.Branco, 7, 0);	
 		for(int i = 0; i < 8; i++) {
-			tab[i][1] = new Peao(PecaCor.Branco);
+			tab[i][1] = new Peao(PecaCor.Branco, i, 1);
 		}
 		
 		// Pecas Pretas
 		
-		tab[0][7] = new Torre(PecaCor.Preto);
-		tab[1][7] = new Cavalo(PecaCor.Preto);	
-		tab[2][7] = new Bispo(PecaCor.Preto);
-		tab[3][7] = new Rei(PecaCor.Preto);
-		tab[4][7] = new Rainha(PecaCor.Preto);
-		tab[5][7] = new Bispo(PecaCor.Preto);
-		tab[6][7] = new Cavalo(PecaCor.Preto);	
-		tab[7][7] = new Torre(PecaCor.Preto);
+		tab[0][7] = new Torre(PecaCor.Preto, 0, 7);
+		tab[1][7] = new Cavalo(PecaCor.Preto, 1, 7);	
+		tab[2][7] = new Bispo(PecaCor.Preto, 2, 7);
+		tab[3][7] = new Rei(PecaCor.Preto, 3, 7);
+		tab[4][7] = new Rainha(PecaCor.Preto, 4, 7);
+		tab[5][7] = new Bispo(PecaCor.Preto, 5, 7);
+		tab[6][7] = new Cavalo(PecaCor.Preto, 6, 7);	
+		tab[7][7] = new Torre(PecaCor.Preto, 7, 7);
 		
 		for(int i = 0; i < 8; i++) {
-			tab[i][6] = new Peao(PecaCor.Preto);
+			tab[i][6] = new Peao(PecaCor.Preto, i, 6);
 		}
 		
 	}
 	
 	//peca analisa movimentos possiveis na direcao (dx, dy) e adiciona em mov
 	//recebe qnt de elementos em mov e retorna a nova qnt
-	protected int percorre(int x, int y, int dx, int dy, Peca[][] tab, int[][]mov, int count) {
+	protected int percorre(int dx, int dy, int[][]mov, int count) {
 		int c = count;
+		Peca[][] tab = Tabuleiro.getGameMatrix();
+		
+		int x = this.x;
+		int y = this.y;
+		
 		x += dx;
 		y += dy;
 		while (!Tabuleiro.isOutOfBounds(x, y)) {
@@ -91,9 +108,14 @@ public abstract class Peca {
 	
 	//peca analisa movimentos possiveis na direcao (dx, dy) com um limite > 0 de passos e adiciona em mov
 	//recebe qnt de elementos em mov e retorna a nova qnt
-	protected int percorre(int x, int y, int dx, int dy, int limit, Peca[][] tab, int[][]mov, int count) {
+	protected int percorre(int dx, int dy, int limit, int[][]mov, int count) {
 		
 		int c = count;
+		Peca[][] tab = Tabuleiro.getGameMatrix();
+		
+		int x = this.x;
+		int y = this.y;
+		
 		int vezes = 1;
 		
 		if (limit <= 0) return c;

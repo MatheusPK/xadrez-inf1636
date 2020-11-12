@@ -7,23 +7,26 @@ public class Peao extends Peca{
 	protected Peao(PecaCor cor) {
 		super(cor);
 	}
+	
+	protected Peao(PecaCor cor, int x, int y) {
+		super(cor, x, y);
+	}
 
 	@Override
-	public int[][] movimentosDisponiveis(int x, int y) {
-		Peca[][] tab = Tabuleiro.getGameMatrix();
+	public int[][] movimentosDisponiveis() {
 		int [][] movimentos = new int[63][2];
 		int movCount = 0;
 		
 		
 	
 		if (!hasMoved) {
-			movCount = percorre(x, y, 0, 1, 2, tab, movimentos, movCount);
+			movCount = percorre(0, 1, 2, movimentos, movCount);
 		}
 		else {
-			movCount = percorre(x, y, 0, 1, 1, tab, movimentos, movCount);
+			movCount = percorre(0, 1, 1, movimentos, movCount);
 		}
 		
-		movCount = movLateral(x, y, tab, movimentos, movCount);
+		movCount = movLateral(movimentos, movCount);
 		
 		System.out.println(movCount);
 		
@@ -31,15 +34,19 @@ public class Peao extends Peca{
 
 	}
 	
-	protected int percorre(int x, int y, int dx, int dy, int limit, Peca[][] tab, int[][]mov, int count) {
-		
+	protected int percorre(int dx, int dy, int limit, int[][]mov, int count) {
 		int c = count;
+		Peca[][] tab = Tabuleiro.getGameMatrix();
+		
+		int x = this.x;
+		int y = this.y;
+		
 		int vezes = 1;
 		
 		if (limit <= 0) return c;
 		
 		int signal = 1;
-		if (this.getCor() == PecaCor.Preto) {
+		if (this.cor == PecaCor.Preto) {
 			signal = -1;
 		}
 		
@@ -66,11 +73,15 @@ public class Peao extends Peca{
 		return c;
 	}
 	
-	private int movLateral(int x, int y, Peca[][] tab, int[][]mov, int count) {
+	private int movLateral(int[][]mov, int count) {
 		int c = count;
+		Peca[][] tab = Tabuleiro.getGameMatrix();
+		
+		int x = this.x;
+		int y = this.y;
 		
 		int signal = 1;
-		if (this.getCor() == PecaCor.Preto) {
+		if (this.cor == PecaCor.Preto) {
 			signal = -1;
 		}
 		
@@ -82,7 +93,7 @@ public class Peao extends Peca{
 		
 		if (!Tabuleiro.isOutOfBounds(x1, y1)){
 			Peca p = tab[x1][y1];
-			if (p != null && p.getCor() != this.getCor()) {
+			if (p != null && p.cor != this.cor) {
 				mov[c] = new int[]{x1, y1}; 
 				c++;
 			}
@@ -90,7 +101,7 @@ public class Peao extends Peca{
 		
 		if (!Tabuleiro.isOutOfBounds(x2, y2)){
 			Peca p = tab[x2][y2];
-			if (p != null && p.getCor() != this.getCor()) {
+			if (p != null && p.cor != this.cor) {
 				mov[c] = new int[]{x2, y2}; 
 				c++;
 			}

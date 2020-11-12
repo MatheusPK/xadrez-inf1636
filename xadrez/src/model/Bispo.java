@@ -4,17 +4,20 @@ public class Bispo extends Peca{
 	protected Bispo(PecaCor cor) {
 		super(cor);
 	}
+	
+	protected Bispo(PecaCor cor, int x, int y) {
+		super(cor, x, y);
+	}
 
 	@Override
-	public int[][] movimentosDisponiveis(int x, int y) {
-		Peca[][] tab = Tabuleiro.getGameMatrix();
+	public int[][] movimentosDisponiveis() {
 		int [][] movimentos = new int[63][2];
 		int movCount = 0;
 		
-		movCount = percorre(x, y, 1, 1, tab, movimentos, movCount);
-		movCount = percorre(x, y, -1, 1, tab, movimentos, movCount);
-		movCount = percorre(x, y, -1, -1, tab, movimentos, movCount);
-		movCount = percorre(x, y, 1, -1, tab, movimentos, movCount);
+		movCount = percorre(1, 1, movimentos, movCount);
+		movCount = percorre(-1, 1, movimentos, movCount);
+		movCount = percorre(-1, -1, movimentos, movCount);
+		movCount = percorre(1, -1, movimentos, movCount);
 		// oiiee
 		
 		System.out.println(movCount);
