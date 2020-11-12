@@ -3,10 +3,12 @@ package model;
 public class Tabuleiro {
 	private static Peca[][] gameMatrix = new Peca[8][8];
 
+	//retorna referencia para a matriz estatica
 	public static Peca[][] getGameMatrix() {
 		return gameMatrix;
 	}
 	
+	//funcao para debugar matrix tabuleiro
 	public static void printaTabuleiro() {
 		Peca[][] tab = Tabuleiro.getGameMatrix();
 		for(int i = 0; i < 8; i ++) {
@@ -16,14 +18,17 @@ public class Tabuleiro {
 		}
 	}
 	
+	//retorna se posicao é fora do tabuleiro
 	public static Boolean isOutOfBounds(int x, int y) {
 		return !(x >= 0 && x <= 7 && y >= 0 && y <= 7);
 	}
 	
+	//mesmo que gameMatrix[x][[y]
 	public static Peca getPecaIn(int x, int y) {
 		return gameMatrix[x][y];
 	}
 	
+	//funcao temporario para imprimir tabuleiro e pecas em interface caracter
 	public static void desenhaTabuleiro() {
 		for(int i = 7; i >= 0; i --) {
 			System.out.printf("%d---", i);

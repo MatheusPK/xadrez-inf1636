@@ -3,15 +3,21 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-
+//enum com possiveis valores para cor da peca
 enum PecaCor { 
 	Preto, Branco;
 }
 
 public abstract class Peca {
-	private PecaCor cor; 
-//	private int x;
-//	private int y;
+	//cor da peca
+	protected PecaCor cor; 
+	
+	//posicao x y da peca 
+	//(apenas para facilitar acesso, o que define sua real posicao é seu ij da matrix do tabuleiro)
+	protected int x;
+	protected int y;
+	
+	//construtor
 	protected Peca(PecaCor cor) {
 		this.cor = cor;
 	}
@@ -19,8 +25,10 @@ public abstract class Peca {
 		return cor;
 	}
 	
+	//metodos abstratos
 	public abstract int[][] movimentosDisponiveis(int x, int y);
 
+	//peca factory
 	public static void PecaFactory() {
 		Peca[][] tab = Tabuleiro.getGameMatrix();
 		
@@ -55,6 +63,8 @@ public abstract class Peca {
 		
 	}
 	
+	//peca analisa movimentos possiveis na direcao (dx, dy) e adiciona em mov
+	//recebe qnt de elementos em mov e retorna a nova qnt
 	protected int percorre(int x, int y, int dx, int dy, Peca[][] tab, int[][]mov, int count) {
 		int c = count;
 		x += dx;
@@ -79,6 +89,8 @@ public abstract class Peca {
 		return c;
 	}
 	
+	//peca analisa movimentos possiveis na direcao (dx, dy) com um limite > 0 de passos e adiciona em mov
+	//recebe qnt de elementos em mov e retorna a nova qnt
 	protected int percorre(int x, int y, int dx, int dy, int limit, Peca[][] tab, int[][]mov, int count) {
 		
 		int c = count;
@@ -109,6 +121,7 @@ public abstract class Peca {
 		return c;
 	}
 	
+	//funcao generica que cria um novo array do tamanho desejado e copia o conteudo de um antigo array
 	protected int [][] reduzArray(int[][] oldArray, int qnt){
 		int [][] newArray = new int[qnt][2];
 		for (int i = 0; i < qnt; i++) {
