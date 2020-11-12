@@ -1,6 +1,6 @@
 package model;
 
-public class Peao extends Peca{
+class Peao extends Peca{
 	
 	private Boolean hasMoved = false;
 	

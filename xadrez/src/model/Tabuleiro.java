@@ -1,6 +1,6 @@
 package model;
 
-public class Tabuleiro {
+class Tabuleiro {
 	private static Peca[][] gameMatrix = new Peca[8][8];
 
 	//retorna referencia para a matriz estatica
@@ -25,6 +25,10 @@ public class Tabuleiro {
 	
 	//mesmo que gameMatrix[x][[y]
 	public static Peca getPecaIn(int x, int y) {
+		if (isOutOfBounds(x, y)) {
+			System.out.println("Posicao Inválida!");
+			return null;
+		}
 		return gameMatrix[x][y];
 	}
 	

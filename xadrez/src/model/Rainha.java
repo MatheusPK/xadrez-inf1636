@@ -1,6 +1,6 @@
 package model;
 
-public class Rainha extends Peca{
+class Rainha extends Peca{
 	
 	protected Rainha(PecaCor cor) {
 		super(cor);

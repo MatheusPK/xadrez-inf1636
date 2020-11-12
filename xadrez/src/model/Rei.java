@@ -1,6 +1,6 @@
 package model;
 
-public class Rei extends Peca{
+class Rei extends Peca{
 	protected Rei(PecaCor cor) {
 		super(cor);
 	}

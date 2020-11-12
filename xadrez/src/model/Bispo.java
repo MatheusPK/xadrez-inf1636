@@ -1,6 +1,6 @@
 package model;
 
-public class Bispo extends Peca{
+class Bispo extends Peca{
 	protected Bispo(PecaCor cor) {
 		super(cor);
 	}

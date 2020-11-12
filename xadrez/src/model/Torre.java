@@ -1,6 +1,6 @@
 package model;
 
-public class Torre extends Peca {
+class Torre extends Peca {
 	
 	protected Torre(PecaCor cor) {
 		super(cor);
