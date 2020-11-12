@@ -110,4 +110,11 @@ public class Peao extends Peca{
 		
 		return c;
 	}
+	
+	public Peca realizaMovimento(int x, int y) {
+		Peca p = super.realizaMovimento(x, y);
+		this.hasMoved = true;
+		return p;
+		
+	}
 }

@@ -152,4 +152,19 @@ public abstract class Peca {
 		oldArray = null;
 		return newArray;
 	}
+	
+	//considerando que o movimento é valido,
+	//move peca no tabuleiro e atualiza seu valor x, y
+	//retorna peca comida ou null (caso a casa esteja vazia)
+	public Peca realizaMovimento(int x, int y) {
+		Peca[][] tab = Tabuleiro.getGameMatrix();
+		Peca p = tab[x][y];
+		
+		tab[this.x][this.y] = null;
+		tab[x][y] = this;
+		
+		this.atualizaPos(x, y);
+		
+		return p;
+	}
 }

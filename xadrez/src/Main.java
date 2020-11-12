@@ -14,13 +14,11 @@ public class Main {
 		
 		Tabuleiro.desenhaTabuleiro();
 		
-		Peca p = Tabuleiro.getPecaIn(1, 6);
+		Peca p = Tabuleiro.getPecaIn(1, 1);
 		int [][] mov = p.movimentosDisponiveis();
 		for (int [] pos : mov) {
 			System.out.printf("(%d, %d)\n", pos[0], pos[1]);
 		}
-		
-		
 		
 	}
 }
