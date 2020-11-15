@@ -8,7 +8,10 @@ enum PecaCor {
 	Preto, Branco;
 }
 
-abstract class Peca {
+
+
+
+public abstract class Peca {
 	//cor da peca
 	protected PecaCor cor; 
 	
@@ -16,6 +19,7 @@ abstract class Peca {
 	//(apenas para facilitar acesso interno, o que define sua real posicao � seu ij da matrix do tabuleiro)
 	protected int x = 0;
 	protected int y = 0;
+	protected PecaTipo tipo;
 	
 	//construtor
 	protected Peca(PecaCor cor) {
@@ -23,13 +27,18 @@ abstract class Peca {
 	}
 	
 	//construtor2
-	protected Peca(PecaCor cor, int x, int y) {
+	protected Peca(PecaCor cor, int x, int y, PecaTipo t) {
 		this.cor = cor;
 		this.x = x;
 		this.y = y;
+		this.tipo = t;
 	}
 	public PecaCor getCor() {
 		return cor;
+	}
+	
+	public PecaTipo getPecaTipo() {
+		return tipo;
 	}
 	
 	protected void atualizaPos(int x, int y) {
@@ -46,31 +55,31 @@ abstract class Peca {
 		
 		// Pecas Brancas
 		
-		tab[0][0] = new Torre(PecaCor.Branco, 0, 0);
-		tab[1][0] = new Cavalo(PecaCor.Branco, 1, 0);	
-		tab[2][0] = new Bispo(PecaCor.Branco, 2, 0);
-		tab[3][0] = new Rei(PecaCor.Branco, 3, 0);
-		tab[4][0] = new Rainha(PecaCor.Branco, 4, 0);
-		tab[5][0] = new Bispo(PecaCor.Branco, 5, 0);
-		tab[6][0] = new Cavalo(PecaCor.Branco, 6, 0);
-		tab[7][0] = new Torre(PecaCor.Branco, 7, 0);	
+		tab[0][0] = new Torre(PecaCor.Branco, 0, 0, PecaTipo.torreB);
+		tab[1][0] = new Cavalo(PecaCor.Branco, 1, 0, PecaTipo.cavaloB);	
+		tab[2][0] = new Bispo(PecaCor.Branco, 2, 0, PecaTipo.bispoB);
+		tab[3][0] = new Rei(PecaCor.Branco, 3, 0, PecaTipo.reiB);
+		tab[4][0] = new Rainha(PecaCor.Branco, 4, 0, PecaTipo.rainhaB);
+		tab[5][0] = new Bispo(PecaCor.Branco, 5, 0, PecaTipo.bispoB);
+		tab[6][0] = new Cavalo(PecaCor.Branco, 6, 0, PecaTipo.cavaloB);
+		tab[7][0] = new Torre(PecaCor.Branco, 7, 0, PecaTipo.torreB);	
 		for(int i = 0; i < 8; i++) {
-			tab[i][1] = new Peao(PecaCor.Branco, i, 1);
+			tab[i][1] = new Peao(PecaCor.Branco, i, 1, PecaTipo.peaoB);
 		}
 		
 		// Pecas Pretas
 		
-		tab[0][7] = new Torre(PecaCor.Preto, 0, 7);
-		tab[1][7] = new Cavalo(PecaCor.Preto, 1, 7);	
-		tab[2][7] = new Bispo(PecaCor.Preto, 2, 7);
-		tab[3][7] = new Rei(PecaCor.Preto, 3, 7);
-		tab[4][7] = new Rainha(PecaCor.Preto, 4, 7);
-		tab[5][7] = new Bispo(PecaCor.Preto, 5, 7);
-		tab[6][7] = new Cavalo(PecaCor.Preto, 6, 7);	
-		tab[7][7] = new Torre(PecaCor.Preto, 7, 7);
+		tab[0][7] = new Torre(PecaCor.Preto, 0, 7, PecaTipo.torreP);
+		tab[1][7] = new Cavalo(PecaCor.Preto, 1, 7, PecaTipo.cavaloP);	
+		tab[2][7] = new Bispo(PecaCor.Preto, 2, 7, PecaTipo.bispoP);
+		tab[3][7] = new Rei(PecaCor.Preto, 3, 7, PecaTipo.reiP);
+		tab[4][7] = new Rainha(PecaCor.Preto, 4, 7, PecaTipo.rainhaP);
+		tab[5][7] = new Bispo(PecaCor.Preto, 5, 7, PecaTipo.bispoP);
+		tab[6][7] = new Cavalo(PecaCor.Preto, 6, 7, PecaTipo.cavaloP);	
+		tab[7][7] = new Torre(PecaCor.Preto, 7, 7, PecaTipo.torreP);
 		
 		for(int i = 0; i < 8; i++) {
-			tab[i][6] = new Peao(PecaCor.Preto, i, 6);
+			tab[i][6] = new Peao(PecaCor.Preto, i, 6, PecaTipo.peaoP);
 		}
 		
 	}

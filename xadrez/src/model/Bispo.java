@@ -5,8 +5,8 @@ class Bispo extends Peca{
 		super(cor);
 	}
 	
-	protected Bispo(PecaCor cor, int x, int y) {
-		super(cor, x, y);
+	protected Bispo(PecaCor cor, int x, int y, PecaTipo t) {
+		super(cor, x, y, t);
 	}
 
 	@Override
