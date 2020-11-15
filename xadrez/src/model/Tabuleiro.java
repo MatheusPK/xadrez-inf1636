@@ -1,6 +1,6 @@
 package model;
 
-class Tabuleiro {
+public class Tabuleiro {
 	private static Peca[][] gameMatrix = new Peca[8][8];
 
 	//retorna referencia para a matriz estatica
@@ -18,7 +18,7 @@ class Tabuleiro {
 		}
 	}
 	
-	//retorna se posicao é fora do tabuleiro
+	//retorna se posicao ï¿½ fora do tabuleiro
 	public static Boolean isOutOfBounds(int x, int y) {
 		return !(x >= 0 && x <= 7 && y >= 0 && y <= 7);
 	}
@@ -26,10 +26,15 @@ class Tabuleiro {
 	//mesmo que gameMatrix[x][[y]
 	public static Peca getPecaIn(int x, int y) {
 		if (isOutOfBounds(x, y)) {
-			System.out.println("Posicao Inválida!");
+			System.out.println("Posicao Invï¿½lida!");
 			return null;
 		}
 		return gameMatrix[x][y];
+	}
+	
+	public static Boolean hasPeca(int x, int y) {
+		Peca p = gameMatrix[x][y];
+		return (p == null) ? false: true;
 	}
 	
 	//funcao temporario para imprimir tabuleiro e pecas em interface caracter

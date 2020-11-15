@@ -13,7 +13,7 @@ abstract class Peca {
 	protected PecaCor cor; 
 	
 	//posicao x y da peca 
-	//(apenas para facilitar acesso interno, o que define sua real posicao é seu ij da matrix do tabuleiro)
+	//(apenas para facilitar acesso interno, o que define sua real posicao ï¿½ seu ij da matrix do tabuleiro)
 	protected int x = 0;
 	protected int y = 0;
 	
@@ -153,7 +153,7 @@ abstract class Peca {
 		return newArray;
 	}
 	
-	//considerando que o movimento é valido,
+	//considerando que o movimento ï¿½ valido,
 	//move peca no tabuleiro e atualiza seu valor x, y
 	//retorna peca comida ou null (caso a casa esteja vazia)
 	public Peca realizaMovimento(int x, int y) {
