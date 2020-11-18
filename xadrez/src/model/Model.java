@@ -10,14 +10,58 @@ public class Model {
 		Tabuleiro.desenhaTabuleiro();
 	}
 	
+	//assume x y valido
 	public static int [][] movDisp(int x, int y) {
 		Peca p = Tabuleiro.getPecaIn(x, y);
+		if (p == null) {
+			return null;
+		}
 		return p.movimentosDisponiveis();
 	}
 	
-	public static Peca movRealiza(int fromX, int fromY, int toX, int toY) {
+	//assume pontos validos
+	public static int movRealiza(int fromX, int fromY, int toX, int toY) {
 		Peca p = Tabuleiro.getPecaIn(fromX, fromY);
-		return p.realizaMovimento(toX, toY);
+		Peca p2 = p.realizaMovimento(toX, toY);
+		return decodifica(p2);
 	}
-
+	
+	public static Boolean isOutOfBounds(int x, int y) {
+		return Tabuleiro.isOutOfBounds(x, y);
+	}
+	
+	//transoforma o tipo da peca (classe e cor) em um inteiro correspondente
+	public static int decodifica(Peca p) {
+		int i;
+		if (p == null) {
+			return 0;
+		}
+		else if (p instanceof Torre) {
+			i = 1;
+		}
+		else if (p instanceof Cavalo) {
+			i = 2;
+		}
+		else if (p instanceof Bispo) {
+			i = 3;
+		}
+		else if (p instanceof Rei) {
+			i = 4;
+		}
+		else if (p instanceof Rainha) {
+			i = 5;
+		}
+		else if (p instanceof Peao) {
+			i = 6;
+		}
+		else {
+			return 0;
+		}
+		
+		if (p.getCor() == PecaCor.Preto) {
+			i *= -1;
+		}
+		
+		return i;
+	}
 }
