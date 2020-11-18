@@ -10,10 +10,20 @@ public class Model {
 		Tabuleiro.desenhaTabuleiro();
 	}
 	
-	//assume x y valido
-	public static int [][] movDisp(int x, int y) {
+	//assume x y valido e (vez > 0 -> branco, vez < 0 -> preto)
+	public static int [][] movDisp(int x, int y, int vez) {
 		Peca p = Tabuleiro.getPecaIn(x, y);
 		if (p == null) {
+			System.out.println("Invalido: Nenhuma peca ai!\n");
+			return null;
+		}
+		PecaCor cor = p.getCor();
+		if (cor == PecaCor.Branco && vez <= 0) {
+			System.out.println("Invalido: Vez do Preto!\n");
+			return null;
+		}
+		else if (cor == PecaCor.Preto && vez > 0) {
+			System.out.println("Invalido: Vez do Branco!\n");
 			return null;
 		}
 		return p.movimentosDisponiveis();
