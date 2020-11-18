@@ -27,12 +27,13 @@ public class TabuleiroView extends JPanel implements MouseListener {
 	
 	
 	public TabuleiroView(int height, int width) {
+		this.setSize(width, height);
 		this.height = height;
 		this.width = width;
-		this.xOffSet = this.height/8;
-		this.yOffSet = this.width/8;
-		this.imgHeight = xOffSet - 10;
-		this.imgWidth = yOffSet - 10;
+		this.xOffSet = this.width/8;
+		this.yOffSet = this.height/8;
+		this.imgHeight = yOffSet - 10;
+		this.imgWidth = xOffSet - 10;
 		Peca.PecaFactory();
 		loadImages();
 		addMouseListener(this);
@@ -57,7 +58,7 @@ public class TabuleiroView extends JPanel implements MouseListener {
 				if(Tabuleiro.hasPeca(j, i)) {
 					g2d.drawImage(imgPecas.get(Tabuleiro.getPecaIn(j, i).getPecaTipo()), (int) (xIni + (j*xOffSet) + (xOffSet/2 - imgHeight/2) ), (int) (yIni + (yOffSet*i) + (yOffSet/2 - imgWidth/2)), (int) imgWidth, (int) imgHeight, this);
 				}
-				//System.out.println("x : " + xIni + (j*xOffSet) + " y: " + this.yIni + (yOffSet*i));
+				System.out.println("x : " + xIni + (j*xOffSet) + " y: " + this.yIni + (yOffSet*i));
 			}
 		}
 	}
