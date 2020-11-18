@@ -33,7 +33,7 @@ public class Model {
 	public static int movRealiza(int fromX, int fromY, int toX, int toY) {
 		Peca p = Tabuleiro.getPecaIn(fromX, fromY);
 		Peca p2 = p.realizaMovimento(toX, toY);
-		return decodifica(p2);
+		return codificaPeca(p2);
 	}
 	
 	public static Boolean isOutOfBounds(int x, int y) {
@@ -41,7 +41,7 @@ public class Model {
 	}
 	
 	//transoforma o tipo da peca (classe e cor) em um inteiro correspondente
-	public static int decodifica(Peca p) {
+	private static int codificaPeca(Peca p) {
 		int i;
 		if (p == null) {
 			return 0;
@@ -73,5 +73,18 @@ public class Model {
 		}
 		
 		return i;
+	}
+	
+	//retorna tabuleiro codificado
+	public static void codificaTabuleiro(int [][] codeTab) {
+		Peca [][] tab = Tabuleiro.getGameMatrix();
+		//int [][] codeTab = new int[8][8];
+		
+		for(int i = 0; i < 8; i ++) {
+			for(int j = 0; j < 8; j ++) {
+				codeTab[i][j] = codificaPeca(tab[i][j]);
+			}
+		}
+		//return codeTab;
 	}
 }

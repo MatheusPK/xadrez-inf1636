@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 public class Controller {
 	
-	static Scanner s = new Scanner(System.in);
-	static int rodada = 0;
+	static private Scanner s = new Scanner(System.in);
+	static private int rodada = 0;
+	static private int [][] codeTab = new int[8][8];
 	
 	
 	public static void main(String[] args) {
@@ -21,6 +22,9 @@ public class Controller {
 	}
 	
 	private static void realizaRodada() {
+		
+		Model.codificaTabuleiro(codeTab);
+		//view (passa codeTab)
 		Model.desenhaTabuleiro();
 		
 		int [][] mov;

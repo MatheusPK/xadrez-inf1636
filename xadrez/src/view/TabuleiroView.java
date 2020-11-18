@@ -21,6 +21,8 @@ public class TabuleiroView extends JPanel implements MouseListener {
 	Image img;
 	Map<PecaTipo, Image> imgPecas = new HashMap<PecaTipo, Image>();
 	
+	String 
+	
 	
 
 	int height, width;
