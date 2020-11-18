@@ -1,6 +1,6 @@
-package model;
+package view;
 
-public enum PecaTipo {
+enum PecaTipo {
 	torreB,
 	cavaloB,
 	bispoB,

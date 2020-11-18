@@ -1,4 +1,8 @@
 package view;
+
+import model.*; //mudar
+import controller.*;//mudar
+
 import java.awt.*;
 
 import javax.imageio.ImageIO;
@@ -10,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import model.*;
 
 
 public class TabuleiroView extends JPanel implements MouseListener {
@@ -21,9 +24,9 @@ public class TabuleiroView extends JPanel implements MouseListener {
 	Image img;
 	Map<PecaTipo, Image> imgPecas = new HashMap<PecaTipo, Image>();
 	
-	String 
-	
-	
+	private PecaTipo [] decodeArrayBranco =  {PecaTipo.torreB, PecaTipo.cavaloB, PecaTipo.bispoB, PecaTipo.reiB, PecaTipo.rainhaB, PecaTipo.peaoB};
+	private PecaTipo [] decodeArrayPreto =  {PecaTipo.torreP, PecaTipo.cavaloP, PecaTipo.bispoP, PecaTipo.reiP, PecaTipo.rainhaP, PecaTipo.peaoP};
+
 
 	int height, width;
 	
@@ -57,15 +60,18 @@ public class TabuleiroView extends JPanel implements MouseListener {
 					g2d.setColor(Color.white);
 				rt=new Rectangle2D.Double(xIni + (j*xOffSet), yIni + (yOffSet*i), xOffSet, yOffSet);
 				g2d.fill(rt);
-				if(Tabuleiro.hasPeca(j, i)) {
-					g2d.drawImage(imgPecas.get(Tabuleiro.getPecaIn(j, i).getPecaTipo()), (int) (xIni + (j*xOffSet) + (xOffSet/2 - imgHeight/2) ), (int) (yIni + (yOffSet*i) + (yOffSet/2 - imgWidth/2)), (int) imgWidth, (int) imgHeight, this);
+				
+				Image img = decodePeca(i, j);
+				
+				if(img != null) {
+					g2d.drawImage(img, (int) (xIni + (j*xOffSet) + (xOffSet/2 - imgHeight/2) ), (int) (yIni + (yOffSet*i) + (yOffSet/2 - imgWidth/2)), (int) imgWidth, (int) imgHeight, this);
 				}
 				System.out.println("x : " + xIni + (j*xOffSet) + " y: " + this.yIni + (yOffSet*i));
 			}
 		}
 	}
 	
-	public void loadImages() {
+	private void loadImages() {
 		
 		for(PecaTipo tipoPeca : PecaTipo.values()) {
 			try {
@@ -76,6 +82,19 @@ public class TabuleiroView extends JPanel implements MouseListener {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private Image decodePeca(int i, int j) {
+		//int cod = codeTab[i][j];
+		int cod = Controller.codeTab[i][j];
+		if (cod == 0) {
+			return null;
+		}
+		if (cod > 0) {
+			return imgPecas.get(decodeArrayBranco[cod]);
+		}
+		cod *= -1;
+		return imgPecas.get(decodeArrayPreto[cod]);
 	}
 	
 

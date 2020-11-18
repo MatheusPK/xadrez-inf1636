@@ -8,8 +8,8 @@ class Peao extends Peca{
 		super(cor);
 	}
 	
-	protected Peao(PecaCor cor, int x, int y, PecaTipo t) {
-		super(cor, x, y, t);
+	protected Peao(PecaCor cor, int x, int y) {
+		super(cor, x, y);
 	}
 
 	@Override

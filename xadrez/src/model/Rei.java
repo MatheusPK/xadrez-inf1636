@@ -5,8 +5,8 @@ class Rei extends Peca{
 		super(cor);
 	}
 	
-	protected Rei(PecaCor cor, int x , int y, PecaTipo t) {
-		super(cor, x, y, t);
+	protected Rei(PecaCor cor, int x , int y) {
+		super(cor, x, y);
 	}
 	
 	

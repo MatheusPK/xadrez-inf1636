@@ -5,8 +5,8 @@ class Cavalo extends Peca{
 		super(cor);
 	}
 	
-	protected Cavalo(PecaCor cor, int x, int y, PecaTipo t) {
-		super(cor, x, y, t);
+	protected Cavalo(PecaCor cor, int x, int y) {
+		super(cor, x, y);
 	}
 	
 	@Override

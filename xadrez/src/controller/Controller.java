@@ -7,7 +7,7 @@ public class Controller {
 	
 	static private Scanner s = new Scanner(System.in);
 	static private int rodada = 0;
-	static private int [][] codeTab = new int[8][8];
+	static public int [][] codeTab = new int[8][8]; //mudar pra private?
 	
 	
 	public static void main(String[] args) {
