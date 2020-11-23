@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import view.*;
 import java.util.Scanner;
 
 public class Controller {
@@ -15,6 +16,11 @@ public class Controller {
 		
 		Model.startGame();
 		
+//		MainView v = new MainView();
+//        v.setTitle("Xadrez - INF1636");
+//        v.setVisible(true);
+		View.startView();
+		
 		while (true) {
 			rodada++;
 			realizaRodada();
@@ -26,6 +32,9 @@ public class Controller {
 		Model.codificaTabuleiro(codeTab);
 		//view (passa codeTab)
 		Model.desenhaTabuleiro();
+		
+		//View.atualizaMovDisp();
+		
 		
 		int [][] mov;
 		int xPeca, yPeca, xDest, yDest, iPeca;

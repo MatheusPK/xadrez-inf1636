@@ -18,7 +18,7 @@ import java.util.*;
 
 public class TabuleiroView extends JPanel implements MouseListener {
 	
-	Tabuleiro t = new Tabuleiro();
+	//Tabuleiro t = new Tabuleiro();
 	int nImagens = 12; 
 	double xIni = 0, yIni = 0, xOffSet, yOffSet, imgHeight, imgWidth;
 	Image img;
@@ -66,7 +66,7 @@ public class TabuleiroView extends JPanel implements MouseListener {
 				if(img != null) {
 					g2d.drawImage(img, (int) (xIni + (j*xOffSet) + (xOffSet/2 - imgHeight/2) ), (int) (yIni + (yOffSet*i) + (yOffSet/2 - imgWidth/2)), (int) imgWidth, (int) imgHeight, this);
 				}
-				System.out.println("x : " + xIni + (j*xOffSet) + " y: " + this.yIni + (yOffSet*i));
+				//System.out.println("x : " + xIni + (j*xOffSet) + " y: " + this.yIni + (yOffSet*i));
 			}
 		}
 	}
@@ -86,15 +86,22 @@ public class TabuleiroView extends JPanel implements MouseListener {
 	
 	private Image decodePeca(int i, int j) {
 		//int cod = codeTab[i][j];
-		int cod = Controller.codeTab[i][j];
+		int cod = Controller.codeTab[j][i];
+		
+		//System.out.println(cod);
 		if (cod == 0) {
 			return null;
 		}
+		
 		if (cod > 0) {
-			return imgPecas.get(decodeArrayBranco[cod]);
+			return imgPecas.get(decodeArrayBranco[cod-1]);
 		}
 		cod *= -1;
-		return imgPecas.get(decodeArrayPreto[cod]);
+		return imgPecas.get(decodeArrayPreto[cod-1]);
+	}
+	
+	public void atualizaMovDisp() {
+		
 	}
 	
 
