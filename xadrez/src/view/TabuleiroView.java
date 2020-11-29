@@ -66,18 +66,19 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 				
 				if(movDisp != null) {
 					for (int [] pos : movDisp) {
-						if(pos[0] == j && pos[1] == i)
+						if(pos[0] == i && pos[1] == j)
 							g2d.setColor(Color.pink);
 					}
 				}
 	
-				rt=new Rectangle2D.Double(xIni + (j*xOffSet), yIni + (yOffSet*i), xOffSet, yOffSet);
+				rt=new Rectangle2D.Double(xIni + (i*xOffSet), yIni + (yOffSet*(7-j)), xOffSet, yOffSet);
 				g2d.fill(rt);
 				
 				Image img = decodePeca(i, j);
 				
 				if(img != null) {
-					g2d.drawImage(img, (int) (xIni + (j*xOffSet) + (xOffSet/2 - imgHeight/2) ), (int) (yIni + (yOffSet*i) + (yOffSet/2 - imgWidth/2)), (int) imgWidth, (int) imgHeight, this);
+					g2d.drawImage(img, (int) (xIni + (i*xOffSet) + (xOffSet/2 - imgHeight/2) ),
+							(int) (yIni + (yOffSet*(7-j)) + (yOffSet/2 - imgWidth/2)), (int) imgWidth, (int) imgHeight, this);
 				}
 				//System.out.println("x : " + xIni + (j*xOffSet) + " y: " + this.yIni + (yOffSet*i));
 			}
@@ -102,7 +103,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 	
 	private Image decodePeca(int i, int j) {
 		//int cod = codeTab[i][j];
-		int cod = codeTab[j][i];
+		int cod = codeTab[i][j];
 		
 		//System.out.println(cod);
 		if (cod == 0) {
@@ -137,7 +138,11 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("oi");
+	
+		int x = e.getX();
+		int y = e.getY();
 		
+		ControllerFacade.getController().verificaClick(x, y, xOffSet, yOffSet);
 	}
 
 }
