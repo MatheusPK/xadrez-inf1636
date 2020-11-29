@@ -2,24 +2,31 @@ package controller;
 
 import model.*;
 import view.*;
-import java.util.Scanner;
+import view.Observable;
+import view.Observer;
 
-public class Controller {
+import java.util.*;
+
+
+public class Controller implements Observable{
 	
 	static private Scanner s = new Scanner(System.in);
 	static private int rodada = 0;
 	static public int [][] codeTab = new int[8][8]; //mudar pra private?
+	static private int[][] movDisp;
+	static private List<Observer> observerList=new ArrayList<Observer>();
 	
 	
 	public static void main(String[] args) {
 
 		
-		Model.startGame();
+		ModelFacade.startGame();
 		
 //		MainView v = new MainView();
 //        v.setTitle("Xadrez - INF1636");
 //        v.setVisible(true);
 		View.startView();
+		addObserver(View.tabView);
 		
 		while (true) {
 			rodada++;
@@ -29,14 +36,17 @@ public class Controller {
 	
 	private static void realizaRodada() {
 		
-		Model.codificaTabuleiro(codeTab);
+		ModelFacade.codificaTabuleiro(codeTab);
 		//view (passa codeTab)
-		Model.desenhaTabuleiro();
+		ModelFacade.desenhaTabuleiro();
+		
+		movDisp = null;
+		
+		for(Observer o: observerList)
+			o.notify(getGambiarra());
 		
 		//View.atualizaMovDisp();
 		
-		
-		int [][] mov;
 		int xPeca, yPeca, xDest, yDest, iPeca;
 		
 		do {
@@ -46,22 +56,25 @@ public class Controller {
 				xPeca = s.nextInt();
 				yPeca = s.nextInt();
 	
-			}while(Model.isOutOfBounds(xPeca, yPeca)); //certifica que o ponto passado é valido 
+			}while(ModelFacade.isOutOfBounds(xPeca, yPeca)); //certifica que o ponto passado ï¿½ valido 
 		
-			mov = Model.movDisp(xPeca,yPeca, defineVez());
+			movDisp = ModelFacade.movDisp(xPeca,yPeca, defineVez());
 			
-		}while (mov == null); //certifica que escolheu uma peca valida (considerando a cor e a vez)
+		}while (movDisp == null); //certifica que escolheu uma peca valida (considerando a cor e a vez)
+		
+		for(Observer o: observerList)
+			o.notify(getGambiarra());
 		
 		//view
 		System.out.printf("Movimentos disponiveis:\n");
-		if (mov.length == 0) { //vazio
+		if (movDisp.length == 0) { //vazio
 			System.out.printf("Nenhum movimento disponivel!\n");
 			//mudar controle (voltar na funcao)
 			realizaRodada();
 			return;
 		}
 		else {
-			for (int [] pos : mov) {
+			for (int [] pos : movDisp) {
 				System.out.printf("(%d, %d)\n", pos[0], pos[1]);
 			}
 		}
@@ -71,10 +84,10 @@ public class Controller {
 			System.out.printf("Escolha pra qual casa movimentar: (x y)\n");
 			xDest = s.nextInt();
 			yDest = s.nextInt();
-		}while(Model.isOutOfBounds(xDest, yDest) || !inDisp(mov, xDest, yDest)); //certifica ponto valido e pertencente aos mov disp
+		}while(ModelFacade.isOutOfBounds(xDest, yDest) || !inDisp(movDisp, xDest, yDest)); //certifica ponto valido e pertencente aos mov disp
 		
 		
-		iPeca = Model.movRealiza(xPeca,yPeca, xDest, yDest);
+		iPeca = ModelFacade.movRealiza(xPeca,yPeca, xDest, yDest);
 		//retorna iPeca pra view
 	}
 	
@@ -95,4 +108,24 @@ public class Controller {
 		
 		return false;
 	}
+
+	public void addObserver(Observer o) {
+		observerList.add(o);
+	}
+	
+	public void removeObserver(Observer o) {
+		observerList.remove(o);
+	}
+	
+	public static Object getGambiarra() {
+		Object dados[] = new Object[2];
+		dados[0] = codeTab;
+		dados[1] = movDisp;
+		return dados;
+	}
+	
+	public Object get() {
+		return null;
+	}
+	
 }

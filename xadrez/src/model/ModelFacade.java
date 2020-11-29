@@ -1,6 +1,6 @@
 package model;
 
-public class Model {
+public class ModelFacade {
 	
 	public static void startGame() {
 		Peca.PecaFactory();

@@ -16,11 +16,13 @@ import java.util.*;
 
 
 
-public class TabuleiroView extends JPanel implements MouseListener {
+public class TabuleiroView extends JPanel implements MouseListener, Observer{
 	
 	//Tabuleiro t = new Tabuleiro();
 	int nImagens = 12; 
 	double xIni = 0, yIni = 0, xOffSet, yOffSet, imgHeight, imgWidth;
+	Object dados[];
+	Observable obs;
 	Image img;
 	Map<PecaTipo, Image> imgPecas = new HashMap<PecaTipo, Image>();
 	
@@ -39,6 +41,7 @@ public class TabuleiroView extends JPanel implements MouseListener {
 		this.yOffSet = this.height/8;
 		this.imgHeight = yOffSet - 10;
 		this.imgWidth = xOffSet - 10;
+		
 		Peca.PecaFactory();
 		loadImages();
 		addMouseListener(this);
@@ -104,6 +107,10 @@ public class TabuleiroView extends JPanel implements MouseListener {
 		
 	}
 	
+	public void notify(Observable o) {
+		
+	}
+	
 
 	public void mouseEntered(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
@@ -114,6 +121,13 @@ public class TabuleiroView extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("oi");
+		
+	}
+
+
+	@Override
+	public void notify(Object o) {
+		// TODO Auto-generated method stub
 		
 	}
 }

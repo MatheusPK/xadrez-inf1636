@@ -2,8 +2,8 @@ package view;
 
 public class View {
 	
-	private static MainView mainView;
-	private static TabuleiroView tabView;
+	public static MainView mainView;
+	public static TabuleiroView tabView;
 	
 	static public void startView(){
 		mainView = new MainView(tabView);
