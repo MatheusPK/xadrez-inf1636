@@ -23,12 +23,12 @@
 //	}
 //}
 
+import controller.ControllerFacade;
 import view.*;
 
 public class Main {
     public static void main(String[] args) {
-//        MainView v = new MainView();
-//        v.setTitle("Xadrez - INF1636");
-//        v.setVisible(true);
+    	ControllerFacade.getController().startController();
+    	
     }
 }

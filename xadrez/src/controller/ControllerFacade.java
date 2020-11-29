@@ -8,33 +8,42 @@ import view.Observer;
 import java.util.*;
 
 
-public class Controller implements Observable{
-	
-	static private Scanner s = new Scanner(System.in);
-	static private int rodada = 0;
-	static public int [][] codeTab = new int[8][8]; //mudar pra private?
-	static private int[][] movDisp;
-	static private List<Observer> observerList=new ArrayList<Observer>();
+public class ControllerFacade implements Observable{
 	
 	
-	public static void main(String[] args) {
-
-		
+	static private ControllerFacade c = null;
+	private Scanner s = new Scanner(System.in);
+	private int rodada = 0;
+	public int [][] codeTab = new int[8][8]; //mudar pra private?
+	private int[][] movDisp;
+	private List<Observer> observerList=new ArrayList<Observer>();
+	
+	
+	
+	private ControllerFacade() {
 		ModelFacade.startGame();
-		
-//		MainView v = new MainView();
-//        v.setTitle("Xadrez - INF1636");
-//        v.setVisible(true);
-		View.startView();
-		addObserver(View.tabView);
-		
+		ViewFacade.startView();
+		addObserver(ViewFacade.tabView);
+	}
+	
+	
+	
+	public static ControllerFacade getController() {
+		if(c == null) {
+			c = new ControllerFacade();
+		}
+		return c;
+	} 
+	
+	public void startController() {
 		while (true) {
 			rodada++;
 			realizaRodada();
 		}
 	}
+
 	
-	private static void realizaRodada() {
+	private void realizaRodada() {
 		
 		ModelFacade.codificaTabuleiro(codeTab);
 		//view (passa codeTab)
@@ -42,9 +51,12 @@ public class Controller implements Observable{
 		
 		movDisp = null;
 		
-		for(Observer o: observerList)
-			o.notify(getGambiarra());
-		
+		for(Observer o: observerList) {
+			if(o == null) {
+				System.out.println("oiasoidosioasido");
+			}
+			o.notify(this);
+		}
 		//View.atualizaMovDisp();
 		
 		int xPeca, yPeca, xDest, yDest, iPeca;
@@ -63,7 +75,7 @@ public class Controller implements Observable{
 		}while (movDisp == null); //certifica que escolheu uma peca valida (considerando a cor e a vez)
 		
 		for(Observer o: observerList)
-			o.notify(getGambiarra());
+			o.notify(this);
 		
 		//view
 		System.out.printf("Movimentos disponiveis:\n");
@@ -91,7 +103,7 @@ public class Controller implements Observable{
 		//retorna iPeca pra view
 	}
 	
-	private static int defineVez() {
+	private int defineVez() {
 		int vez = 1;
 		if (rodada % 2 == 0) {
 			vez = -1;
@@ -99,7 +111,7 @@ public class Controller implements Observable{
 		return vez;
 	}
 	
-	private static Boolean inDisp(int [][] mov, int x, int y) {
+	private Boolean inDisp(int [][] mov, int x, int y) {
 		for (int [] pos : mov) {
 			if (pos[0] == x && pos[1] == y) {
 				return true;
@@ -117,15 +129,11 @@ public class Controller implements Observable{
 		observerList.remove(o);
 	}
 	
-	public static Object getGambiarra() {
+	public Object get() {
 		Object dados[] = new Object[2];
 		dados[0] = codeTab;
 		dados[1] = movDisp;
 		return dados;
-	}
-	
-	public Object get() {
-		return null;
 	}
 	
 }

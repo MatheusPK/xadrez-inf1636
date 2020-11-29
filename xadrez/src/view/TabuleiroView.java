@@ -21,7 +21,9 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 	//Tabuleiro t = new Tabuleiro();
 	int nImagens = 12; 
 	double xIni = 0, yIni = 0, xOffSet, yOffSet, imgHeight, imgWidth;
-	Object dados[];
+	private int[][] codeTab;
+	private int[][] movDisp;
+	
 	Observable obs;
 	Image img;
 	Map<PecaTipo, Image> imgPecas = new HashMap<PecaTipo, Image>();
@@ -61,6 +63,14 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 					g2d.setColor(Color.black);
 				else 
 					g2d.setColor(Color.white);
+				
+				if(movDisp != null) {
+					for (int [] pos : movDisp) {
+						if(pos[0] == j && pos[1] == i)
+							g2d.setColor(Color.pink);
+					}
+				}
+	
 				rt=new Rectangle2D.Double(xIni + (j*xOffSet), yIni + (yOffSet*i), xOffSet, yOffSet);
 				g2d.fill(rt);
 				
@@ -72,6 +82,9 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 				//System.out.println("x : " + xIni + (j*xOffSet) + " y: " + this.yIni + (yOffSet*i));
 			}
 		}
+		
+		
+		
 	}
 	
 	private void loadImages() {
@@ -89,7 +102,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 	
 	private Image decodePeca(int i, int j) {
 		//int cod = codeTab[i][j];
-		int cod = Controller.codeTab[j][i];
+		int cod = codeTab[j][i];
 		
 		//System.out.println(cod);
 		if (cod == 0) {
@@ -103,11 +116,14 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 		return imgPecas.get(decodeArrayPreto[cod-1]);
 	}
 	
-	public void atualizaMovDisp() {
-		
-	}
 	
 	public void notify(Observable o) {
+		obs = o;
+		Object[] dados = (Object []) obs.get();
+		codeTab = (int [][]) dados[0];
+		movDisp = (int [][]) dados[1];
+		
+		repaint();
 		
 	}
 	
@@ -124,10 +140,4 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 		
 	}
 
-
-	@Override
-	public void notify(Object o) {
-		// TODO Auto-generated method stub
-		
-	}
 }

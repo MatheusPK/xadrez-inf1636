@@ -1,5 +1,5 @@
 package view;
 
 public interface Observer {
-	public void notify(Object o);
+	public void notify(Observable o);
 }
