@@ -87,4 +87,22 @@ public class ModelFacade {
 		}
 		//return codeTab;
 	}
+	
+	//retorna se posicao é um dos elementos do vetor de mov disp
+	public static Boolean isPosInDisp(int [][] mov, int x, int y) {
+		for (int [] pos : mov) {
+			if (pos[0] == x && pos[1] == y) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//retorna se o rei da cor (1 ou -1) ta em cheque
+	public static Boolean verificaCheck(int cor) {
+		if (cor == 1) {
+			return Tabuleiro.isCheck(PecaCor.Branco);
+		}
+		return Tabuleiro.isCheck(PecaCor.Preto);
+	}
 }

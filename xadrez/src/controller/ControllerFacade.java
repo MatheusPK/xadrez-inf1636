@@ -66,6 +66,7 @@ public class ControllerFacade implements Observable{
 		}
 	}
 	
+	//branco -> 1 preto -> -1
 	private int defineVez() {
 		int vez = 1;
 		if (rodada % 2 == 0) {
@@ -73,16 +74,6 @@ public class ControllerFacade implements Observable{
 		}
 		return vez;
 	}
-	
-	private Boolean inDisp(int [][] mov, int x, int y) {
-		for (int [] pos : mov) {
-			if (pos[0] == x && pos[1] == y) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	
 	public void verificaClick(int x, int y, double xOffSet, double yOffSet) {
 		
@@ -125,7 +116,7 @@ public class ControllerFacade implements Observable{
 	
 		int iPeca;
 			
-		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !inDisp(movDisp, xPeca, yPeca)){
+		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !ModelFacade.isPosInDisp(movDisp, xPeca, yPeca)){
 			System.out.printf("Movimento Inválido!\n");
 			clickedPecaX = -1;
 		    clickedPecaY = -1;
@@ -137,6 +128,9 @@ public class ControllerFacade implements Observable{
 		clickedPecaX = -1;
 	    clickedPecaY = -1;
 	    
+	    if (ModelFacade.verificaCheck(defineVez()*-1)) {
+			System.out.println("REI EM CHEQUE");
+		}
 	    proxRodada();
 	}
 	

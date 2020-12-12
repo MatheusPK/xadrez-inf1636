@@ -85,11 +85,40 @@ public class Tabuleiro {
 			System.out.printf("%d ", j);
 		}
 		System.out.println();
-		
-		
+	
 	}
 	
+	public static Boolean isCheck(PecaCor cor) {
+		
+		Peca rei = null;
+		
+		for (Peca pecaArray[] : gameMatrix) {
+			for (Peca peca : pecaArray) {
+				if (peca != null && peca.cor == cor && peca instanceof Rei) {
+					rei = peca;
+				}
+			}
+		}
+		
+		if (rei == null){
+			System.out.println("Erro: Rei não encontrado!");
+			return false;
+		}
 	
+		for (Peca pecaArray[] : gameMatrix) {
+			for (Peca peca: pecaArray) {
+				if (peca != null && peca.cor != cor) {
+					int [][] movDisp = peca.movimentosDisponiveis();
+					if (ModelFacade.isPosInDisp(movDisp, rei.x, rei.y)) {
+						return true;
+					}
+					
+				}
+			}
+		}
+		
+		return false;
+	}
 	
 	
 }
