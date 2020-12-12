@@ -112,6 +112,9 @@ public class ControllerFacade implements Observable{
 		else {
 			movDisp = ModelFacade.movDisp(xPeca,yPeca, defineVez());
 		}
+		
+		
+		ModelFacade.verificaRoqueCurto(xPeca, yPeca, defineVez(), movDisp);
 	    
 	    
 	    if (movDisp == null){
@@ -138,7 +141,7 @@ public class ControllerFacade implements Observable{
 			return;
 		} 
 				
-		iPeca = ModelFacade.movRealiza(xPeca, yPeca);//retorna iPeca pra view
+		iPeca = ModelFacade.movRealiza(xPeca, yPeca, defineVez());//retorna iPeca pra view
 		
 		isPecaClicked = false;
 	    

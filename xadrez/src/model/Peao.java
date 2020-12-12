@@ -114,9 +114,4 @@ class Peao extends Peca{
 		this.hasMoved = true;
 		return p;
 	}
-	
-	public Peca realizaSimulacao(int x, int y) {
-		Peca p = super.realizaMovimento(x, y);
-		return p;
-	}
 }

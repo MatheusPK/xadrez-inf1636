@@ -1,6 +1,12 @@
 package model;
 
 class Rei extends Peca{
+	
+//	int [][] impossibleMovs = new int[64][2];
+//	int indexImpMovs = 0;
+	
+	protected Boolean hasMoved = false;
+	
 	protected Rei(PecaCor cor) {
 		super(cor);
 	}
@@ -9,9 +15,6 @@ class Rei extends Peca{
 		super(cor, x, y);
 	}
 	
-//	int [][] impossibleMovs = new int[64][2];
-//	int indexImpMovs = 0;
-
 	@Override
 	public int[][] movimentosDisponiveis() {
 		int [][] movimentos = new int[63][2];
@@ -29,6 +32,12 @@ class Rei extends Peca{
 		
 		return ModelFacade.reduzArray(movimentos, movCount);
 	}
+	
+	public Peca realizaMovimento(int x, int y) {
+        Peca p = super.realizaMovimento(x, y);
+        this.hasMoved = true;
+        return p;
+    }      
 	
 //	public void addImpossibleMov(int x, int y) {
 //		

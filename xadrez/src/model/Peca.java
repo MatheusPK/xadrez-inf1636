@@ -158,4 +158,8 @@ public abstract class Peca {
 		
 		return p;
 	}
+	
+	public Peca simulaMovimento(int x, int y) {
+		return realizaMovimento(x, y);
+	}
 }

@@ -2,6 +2,8 @@ package model;
 
 class Torre extends Peca {
 	
+	protected Boolean hasMoved = false;
+	
 	protected Torre(PecaCor cor) {
 		super(cor);
 	}
@@ -22,5 +24,12 @@ class Torre extends Peca {
 		
 		return ModelFacade.reduzArray(movimentos, movCount);
 	}
+	
+	public Peca realizaMovimento(int x, int y) {
+        Peca p = super.realizaMovimento(x, y);
+        this.hasMoved = true;
+        return p;
+        
+    }  
 	
 }
