@@ -18,6 +18,10 @@ public class ModelFacade {
 	//assume x y valido e (vez > 0 -> branco, vez < 0 -> preto)
 	public static int [][] movDisp(int x, int y, int vez) {
 		Peca p = Tabuleiro.getPecaIn(x, y);
+		if (p instanceof Rei){
+			return movDispXeque(x, y, vez);
+		}
+		
 		if (p == null) {
 			//System.out.println("Invalido: Nenhuma peca ai!\n");
 			return null;
@@ -67,12 +71,23 @@ public class ModelFacade {
 		int xPeca = peca.x;
 		int yPeca = peca.y;
 		
-		peca.realizaMovimento(pos[0], pos[1]);
-		Boolean xeque = verificaXeque(vez);
-		peca.realizaMovimento(xPeca, yPeca);
+		if (peca instanceof Peao) {
+			Peao peao = (Peao) peca;
+			peao.realizaSimulacao(pos[0], pos[1]);
+		}
+		else {
+			peca.realizaMovimento(pos[0], pos[1]);
+		}
 		
-		if (xeque)
-			System.out.printf("Posicoa em xeque: %d %d\n", pos[0], pos[1]);
+		Boolean xeque = verificaXeque(vez);
+		
+		if (peca instanceof Peao) {
+			Peao peao = (Peao) peca;
+			peao.realizaSimulacao(xPeca, yPeca);
+		}
+		else {
+			peca.realizaMovimento(xPeca, yPeca);
+		}
 		
 		return xeque;
 	}

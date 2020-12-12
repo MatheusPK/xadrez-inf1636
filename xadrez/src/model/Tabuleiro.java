@@ -106,7 +106,7 @@ public class Tabuleiro {
 			return false;
 		}
 		
-		rei.clearImpossibleMovs();
+		//rei.clearImpossibleMovs();
 	
 		for (Peca pecaArray[] : gameMatrix) {
 			for (Peca peca: pecaArray) {
@@ -120,7 +120,7 @@ public class Tabuleiro {
 						if (pos[0] == rei.x && pos[1] == rei.y) {
 							check = true;
 						}
-						rei.addImpossibleMov(pos[0], pos[1]);
+						//rei.addImpossibleMov(pos[0], pos[1]);
 					}
 					
 				}
