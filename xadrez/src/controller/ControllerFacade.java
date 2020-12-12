@@ -81,12 +81,11 @@ public class ControllerFacade implements Observable{
 		
 		yPeca = 7 - yPeca;
 		
-		if (!isPecaClicked) {
-			verificaMovDisp(xPeca, yPeca);
-		}
-		else {
+		
+		if (isPecaClicked) {
 			selecionaMov(xPeca, yPeca);
 		}
+		verificaMovDisp(xPeca, yPeca);
 	}
 	
 	private void verificaMovDisp(int xPeca, int yPeca) {
@@ -99,6 +98,9 @@ public class ControllerFacade implements Observable{
 	    movDisp = ModelFacade.movDisp(xPeca,yPeca, defineVez());
 	    
 	    if (movDisp == null){
+	    	for(Observer o: observerList) {
+				o.notify(this);
+			}
 	    	System.out.println("Clique inválido");
 	    	return;
 		} 
@@ -113,7 +115,10 @@ public class ControllerFacade implements Observable{
 	{
 	
 		int iPeca;
-			
+		
+		if (movDisp == null) {
+			return;
+		}
 		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !ModelFacade.isPosInMov(movDisp, xPeca, yPeca)){
 			System.out.printf("Movimento Inválido!\n");
 			return;
