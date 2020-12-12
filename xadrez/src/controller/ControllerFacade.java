@@ -15,6 +15,7 @@ public class ControllerFacade implements Observable{
 
 	private int rodada = 0;
 	private Boolean isPecaClicked = false;
+	private int isXeque = 0; //1 --> branco/ -1 --> preto
 	
 	private int [][] codeTab = new int[8][8];
 	private int[][] movDisp;
@@ -68,8 +69,9 @@ public class ControllerFacade implements Observable{
 		rodada++;
 		atualizaView();
 		
-		if (ModelFacade.verificaCheck(defineVez())) {
-			System.out.println("REI EM CHEQUE");
+		isXeque = 0;
+		if (ModelFacade.verificaXeque(defineVez())) {
+			isXeque = defineVez();
 		}
 	}
 	
@@ -103,7 +105,14 @@ public class ControllerFacade implements Observable{
 			return;
 		}
 		
-	    movDisp = ModelFacade.movDisp(xPeca,yPeca, defineVez());
+		if (isXeque == defineVez()){
+			System.out.println("XEQUE - controller");
+			movDisp = ModelFacade.movDispXeque(xPeca, yPeca, defineVez());
+		}
+		else {
+			movDisp = ModelFacade.movDisp(xPeca,yPeca, defineVez());
+		}
+	    
 	    
 	    if (movDisp == null){
 	    	atualizaView();

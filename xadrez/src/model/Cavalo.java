@@ -26,6 +26,6 @@ class Cavalo extends Peca{
 		movCount = percorre(1, -2, 1, movimentos, movCount);
 		movCount = percorre(2, -1, 1, movimentos, movCount);
 		
-		return reduzArray(movimentos, movCount);
+		return ModelFacade.reduzArray(movimentos, movCount);
 	}
 }

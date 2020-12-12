@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 public class ModelFacade {
 	
 	private static Peca pecaClicked;
@@ -31,6 +33,58 @@ public class ModelFacade {
 		}
 		pecaClicked = p;
 		return p.movimentosDisponiveis();
+	}
+	
+	//assume x y valido e (vez > 0 -> branco, vez < 0 -> preto)
+	public static int [][] movDispXeque(int x, int y, int vez) {
+		Peca p = Tabuleiro.getPecaIn(x, y);
+		if (p == null) {
+			return null;
+		}
+		PecaCor cor = p.getCor();
+		if (cor == PecaCor.Branco && vez <= 0) {
+			return null;
+		}
+		else if (cor == PecaCor.Preto && vez > 0) {
+			return null;
+		}
+		pecaClicked = p;
+		int [][] movDisp = p.movimentosDisponiveis();
+		int[][] movDispRemov = new int[movDisp.length][2];
+		int index = 0;
+		
+		for (int [] pos: movDisp) {
+			if (!simulateMov(pos, p, vez)) {
+				movDispRemov[index] = pos.clone();
+				index++;
+			}
+		}
+		
+		return reduzArray(movDispRemov, index);
+	}
+	
+	private static Boolean simulateMov(int [] pos, Peca peca, int vez) {
+		int xPeca = peca.x;
+		int yPeca = peca.y;
+		
+		peca.realizaMovimento(pos[0], pos[1]);
+		Boolean xeque = verificaXeque(vez);
+		peca.realizaMovimento(xPeca, yPeca);
+		
+		if (xeque)
+			System.out.printf("Posicoa em xeque: %d %d\n", pos[0], pos[1]);
+		
+		return xeque;
+	}
+	
+	//funcao generica que cria um novo array do tamanho desejado e copia o conteudo de um antigo array
+	public static int [][] reduzArray(int[][] oldArray, int qnt){
+		int [][] newArray = new int[qnt][2];
+		for (int i = 0; i < qnt; i++) {
+			newArray[i] = oldArray[i].clone();
+		}
+		oldArray = null;
+		return newArray;
 	}
 	
 	//assume pontos validos
@@ -107,11 +161,11 @@ public class ModelFacade {
 	}
 	
 	//retorna se o rei da cor (1 ou -1) ta em cheque
-	public static Boolean verificaCheck(int cor) {
+	public static Boolean verificaXeque(int cor) {
 		if (cor == 1) {
-			return Tabuleiro.isCheck(PecaCor.Branco);
+			return Tabuleiro.isXeque(PecaCor.Branco);
 		}
-		return Tabuleiro.isCheck(PecaCor.Preto);
+		return Tabuleiro.isXeque(PecaCor.Preto);
 	}
 	
 	//verifica se a peca a ser movida e peao e esta num local de promocao

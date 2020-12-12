@@ -28,7 +28,7 @@ class Peao extends Peca{
 		
 		movCount = movLateral(movimentos, movCount);
 		
-		return reduzArray(movimentos, movCount);
+		return ModelFacade.reduzArray(movimentos, movCount);
 
 	}
 	

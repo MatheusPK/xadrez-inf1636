@@ -88,7 +88,7 @@ public class Tabuleiro {
 	
 	}
 	
-	public static Boolean isCheck(PecaCor cor) {
+	public static Boolean isXeque(PecaCor cor) {
 		
 		Rei rei = null;
 		Boolean check = false;

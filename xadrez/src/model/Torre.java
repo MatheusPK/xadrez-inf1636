@@ -20,7 +20,7 @@ class Torre extends Peca {
 		movCount = percorre(0, 1, movimentos, movCount);
 		movCount = percorre(0, -1, movimentos, movCount);
 		
-		return reduzArray(movimentos, movCount);
+		return ModelFacade.reduzArray(movimentos, movCount);
 	}
 	
 }

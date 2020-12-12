@@ -143,15 +143,6 @@ public abstract class Peca {
 		return c;
 	}
 	
-	//funcao generica que cria um novo array do tamanho desejado e copia o conteudo de um antigo array
-	protected int [][] reduzArray(int[][] oldArray, int qnt){
-		int [][] newArray = new int[qnt][2];
-		for (int i = 0; i < qnt; i++) {
-			newArray[i] = oldArray[i].clone();
-		}
-		oldArray = null;
-		return newArray;
-	}
 	
 	//considerando que o movimento � valido,
 	//move peca no tabuleiro e atualiza seu valor x, y
