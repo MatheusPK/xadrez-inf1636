@@ -17,16 +17,16 @@ public class ModelFacade {
 	public static int [][] movDisp(int x, int y, int vez) {
 		Peca p = Tabuleiro.getPecaIn(x, y);
 		if (p == null) {
-			System.out.println("Invalido: Nenhuma peca ai!\n");
+			//System.out.println("Invalido: Nenhuma peca ai!\n");
 			return null;
 		}
 		PecaCor cor = p.getCor();
 		if (cor == PecaCor.Branco && vez <= 0) {
-			System.out.println("Invalido: Vez do Preto!\n");
+			//System.out.println("Invalido: Vez do Preto!\n");
 			return null;
 		}
 		else if (cor == PecaCor.Preto && vez > 0) {
-			System.out.println("Invalido: Vez do Branco!\n");
+			//System.out.println("Invalido: Vez do Branco!\n");
 			return null;
 		}
 		pecaClicked = p;

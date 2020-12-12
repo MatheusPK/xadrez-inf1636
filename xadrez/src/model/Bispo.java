@@ -18,9 +18,6 @@ class Bispo extends Peca{
 		movCount = percorre(-1, 1, movimentos, movCount);
 		movCount = percorre(-1, -1, movimentos, movCount);
 		movCount = percorre(1, -1, movimentos, movCount);
-		// oiiee
-		
-		System.out.println(movCount);
 		
 		return reduzArray(movimentos, movCount);
 	}

@@ -28,8 +28,6 @@ class Peao extends Peca{
 		
 		movCount = movLateral(movimentos, movCount);
 		
-		System.out.println(movCount);
-		
 		return reduzArray(movimentos, movCount);
 
 	}

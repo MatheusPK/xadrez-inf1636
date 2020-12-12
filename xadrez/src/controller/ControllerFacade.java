@@ -53,15 +53,23 @@ public class ControllerFacade implements Observable{
 		return dados;
 	}
 	
-	private void proxRodada() {
-		
-		rodada++;
+	private void atualizaView() {
 		ModelFacade.codificaTabuleiro(codeTab);
-		ModelFacade.desenhaTabuleiro();
+		//ModelFacade.desenhaTabuleiro();
 		movDisp = null;
 		
 		for(Observer o: observerList) {
 			o.notify(this);
+		}
+	}
+	
+	private void proxRodada() {
+		
+		rodada++;
+		atualizaView();
+		
+		if (ModelFacade.verificaCheck(defineVez())) {
+			System.out.println("REI EM CHEQUE");
 		}
 	}
 	
@@ -91,17 +99,14 @@ public class ControllerFacade implements Observable{
 	private void verificaMovDisp(int xPeca, int yPeca) {
 		
 		if (ModelFacade.isOutOfBounds(xPeca, yPeca)){
-			System.out.println("Clique inválido");
+			//System.out.println("Clique inválido");
 			return;
 		}
 		
 	    movDisp = ModelFacade.movDisp(xPeca,yPeca, defineVez());
 	    
 	    if (movDisp == null){
-	    	for(Observer o: observerList) {
-				o.notify(this);
-			}
-	    	System.out.println("Clique inválido");
+	    	atualizaView();
 	    	return;
 		} 
 	    
@@ -111,7 +116,7 @@ public class ControllerFacade implements Observable{
 			o.notify(this);
 	}
 	
-	public void selecionaMov(int xPeca, int yPeca)
+	private void selecionaMov(int xPeca, int yPeca)
 	{
 	
 		int iPeca;
@@ -120,7 +125,7 @@ public class ControllerFacade implements Observable{
 			return;
 		}
 		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !ModelFacade.isPosInMov(movDisp, xPeca, yPeca)){
-			System.out.printf("Movimento Inválido!\n");
+			//System.out.printf("Movimento Inválido!\n");
 			return;
 		} 
 				
@@ -128,17 +133,8 @@ public class ControllerFacade implements Observable{
 		
 		isPecaClicked = false;
 	    
-	    if (ModelFacade.verificaCheck(defineVez()*-1)) {
-			System.out.println("REI EM CHEQUE");
-		}
-	    
 	    if(ModelFacade.verificaPromocao(xPeca, yPeca)) {
-	    	ModelFacade.codificaTabuleiro(codeTab);
-			ModelFacade.desenhaTabuleiro();
-			movDisp = null;
-			for(Observer o: observerList) {
-				o.notify(this);
-			}
+	    	atualizaView();
             ViewFacade.popUpPromo();
             return;
         }

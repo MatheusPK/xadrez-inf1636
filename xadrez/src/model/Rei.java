@@ -27,17 +27,12 @@ class Rei extends Peca{
 		movCount = percorre(-1, -1, 1, movimentos, movCount);
 		movCount = percorre(1, -1, 1, movimentos, movCount);
 		
-		System.out.println(movCount);
-		
 		return reduzArray(movimentos, movCount);
 	}
 	
 	public void addImpossibleMov(int x, int y) {
 		
 		Boolean repetido = false;
-		
-		//if (indexImpMovs > 7)
-		//	return;
 		
 		for (int [] pos : impossibleMovs) {
 			if (pos[0] == x && pos[1] == y) {

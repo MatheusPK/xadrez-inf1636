@@ -26,7 +26,7 @@ public class Tabuleiro {
 	//mesmo que gameMatrix[x][[y]
 	public static Peca getPecaIn(int x, int y) {
 		if (isOutOfBounds(x, y)) {
-			System.out.println("Posicao Inv�lida!");
+			System.out.println("Posicao Invalida!");
 			return null;
 		}
 		return gameMatrix[x][y];
