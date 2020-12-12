@@ -2,6 +2,9 @@ package model;
 
 public class ModelFacade {
 	
+	private static Peca pecaClicked;
+	private static Peca peaoPromo;
+	
 	public static void startGame() {
 		Peca.PecaFactory();
 	}
@@ -26,14 +29,19 @@ public class ModelFacade {
 			System.out.println("Invalido: Vez do Branco!\n");
 			return null;
 		}
+		pecaClicked = p;
 		return p.movimentosDisponiveis();
 	}
 	
 	//assume pontos validos
-	public static int movRealiza(int fromX, int fromY, int toX, int toY) {
-		Peca p = Tabuleiro.getPecaIn(fromX, fromY);
-		Peca p2 = p.realizaMovimento(toX, toY);
-		return codificaPeca(p2);
+	public static int movRealiza(int toX, int toY) {
+		if (pecaClicked == null){
+			System.out.println("pecaClicked (temporario) é nulo");
+			return codificaPeca(null);
+		}
+		Peca pecaComida = pecaClicked.realizaMovimento(toX, toY);
+		pecaClicked = null;
+		return codificaPeca(pecaComida);
 	}
 	
 	public static Boolean isOutOfBounds(int x, int y) {
@@ -109,16 +117,27 @@ public class ModelFacade {
 	//verifica se a peca a ser movida e peao e esta num local de promocao
 	public static Boolean verificaPromocao(int pecaX, int pecaY) {
         Peca p = Tabuleiro.getPecaIn(pecaX, pecaY);
-        return ((pecaY == 0 || pecaY == 7) && p instanceof Peao);
+        if ((pecaY == 0 || pecaY == 7) && p instanceof Peao) {
+        	peaoPromo = p;
+        	return true;
+        }
+        return false;
     }
     
 	//muda peca no tabuleiro de acordo com a peca escolhida no popup
-    public static void realizaPromocao(int pecaX, int pecaY, int pecaNova) {
-        System.out.println("promovido");
+    public static void realizaPromocao(int pecaNova) {
+    	
         Peca[][] tab = Tabuleiro.getGameMatrix();
-        PecaCor cor = Tabuleiro.getPecaIn(pecaX, pecaY).getCor();
         
+        if (peaoPromo == null) {
+        	System.out.println("peaoPromo (temporario) é nulo");
+			return;
+        }
         
+        PecaCor cor = peaoPromo.getCor();
+        int pecaX = peaoPromo.x;
+        int pecaY = peaoPromo.y;
+       
         if (pecaNova == 1) {
             tab[pecaX][pecaY] = new Torre(cor, pecaX, pecaY);
         }
@@ -131,6 +150,7 @@ public class ModelFacade {
         else if (pecaNova == 5) {
             tab[pecaX][pecaY] = new Rainha(cor, pecaX, pecaY);
         }
-                 
+        
+        peaoPromo = null;     
     }
 }

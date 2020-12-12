@@ -33,7 +33,8 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 
 
 	int height, width;
-	private Boolean popUpActive = false;
+	private JFrame popUpFrame;
+	private Boolean hasInit = false;
 	
 	
 	public TabuleiroView(int height, int width) {
@@ -52,6 +53,9 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 	
 	
 	public void paintComponent(Graphics g) {
+		if (!hasInit)
+			return;
+	
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		Rectangle2D rt;
@@ -125,8 +129,9 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 		codeTab = (int [][]) dados[0];
 		movDisp = (int [][]) dados[1];
 		
+		if (!hasInit)
+			hasInit = true;
 		repaint();
-		
 	}
 	
 
@@ -138,7 +143,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if (popUpActive)
+		if (popUpFrame != null)
 			return;
 	
 		int x = e.getX();
@@ -151,7 +156,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
         
         JFrame frame = new JFrame("Promoção Peão!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        
         final Toolkit toolkit = frame.getToolkit();
         JPopupMenu pm = new JPopupMenu();
         
@@ -184,7 +189,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
-        popUpActive = true;
+        popUpFrame = frame;
     }
 
 
@@ -194,8 +199,9 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 		JMenuItem aux = (JMenuItem) e.getSource();
 		//System.out.println(aux.getName());
 		int iPeca = Integer.parseInt(aux.getName());
-		
-		
+		popUpFrame.dispose();
+		popUpFrame = null;
+		ControllerFacade.getController().selecionaPromocao(iPeca);
 	}
 
 }

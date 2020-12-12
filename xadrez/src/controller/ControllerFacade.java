@@ -12,15 +12,14 @@ public class ControllerFacade implements Observable{
 	
 	
 	static private ControllerFacade c = null;
-	private Scanner s = new Scanner(System.in);
+
 	private int rodada = 0;
+	private Boolean isPecaClicked = false;
+	
 	private int [][] codeTab = new int[8][8];
 	private int[][] movDisp;
+	
 	private List<Observer> observerList=new ArrayList<Observer>();
-	private int clickedPecaX = -1;
-	private int clickedPecaY = -1;
-	
-	
 	
 	private ControllerFacade() {
 		ModelFacade.startGame();
@@ -82,7 +81,7 @@ public class ControllerFacade implements Observable{
 		
 		yPeca = 7 - yPeca;
 		
-		if (clickedPecaX == -1 && clickedPecaY == -1) {
+		if (!isPecaClicked) {
 			verificaMovDisp(xPeca, yPeca);
 		}
 		else {
@@ -103,9 +102,8 @@ public class ControllerFacade implements Observable{
 	    	System.out.println("Clique inválido");
 	    	return;
 		} 
-	 
-	    clickedPecaX = xPeca;
-	    clickedPecaY = yPeca;
+	    
+	    isPecaClicked = true;
 		
 		for(Observer o: observerList)
 			o.notify(this);
@@ -118,29 +116,33 @@ public class ControllerFacade implements Observable{
 			
 		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !ModelFacade.isPosInMov(movDisp, xPeca, yPeca)){
 			System.out.printf("Movimento Inválido!\n");
-			clickedPecaX = -1;
-		    clickedPecaY = -1;
 			return;
 		} 
 				
-		iPeca = ModelFacade.movRealiza(clickedPecaX,clickedPecaY, xPeca, yPeca);//retorna iPeca pra view
+		iPeca = ModelFacade.movRealiza(xPeca, yPeca);//retorna iPeca pra view
 		
-		clickedPecaX = -1;
-	    clickedPecaY = -1;
+		isPecaClicked = false;
 	    
 	    if (ModelFacade.verificaCheck(defineVez()*-1)) {
 			System.out.println("REI EM CHEQUE");
 		}
 	    
 	    if(ModelFacade.verificaPromocao(xPeca, yPeca)) {
+	    	ModelFacade.codificaTabuleiro(codeTab);
+			ModelFacade.desenhaTabuleiro();
+			movDisp = null;
+			for(Observer o: observerList) {
+				o.notify(this);
+			}
             ViewFacade.popUpPromo();
-            //ModelFacade.realizaPromocao(xPeca, yPeca, 2);
+            return;
         }
 	    proxRodada();
 	}
 	
-	public void selecionaPromocao() {
-		
+	public void selecionaPromocao(int iPeca) {
+		ModelFacade.realizaPromocao(iPeca);
+		proxRodada();
 	}
 	
 }
