@@ -116,7 +116,7 @@ public class ControllerFacade implements Observable{
 	
 		int iPeca;
 			
-		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !ModelFacade.isPosInDisp(movDisp, xPeca, yPeca)){
+		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !ModelFacade.isPosInMov(movDisp, xPeca, yPeca)){
 			System.out.printf("Movimento Inválido!\n");
 			clickedPecaX = -1;
 		    clickedPecaY = -1;

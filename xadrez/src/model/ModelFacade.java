@@ -89,7 +89,7 @@ public class ModelFacade {
 	}
 	
 	//retorna se posicao é um dos elementos do vetor de mov disp
-	public static Boolean isPosInDisp(int [][] mov, int x, int y) {
+	public static Boolean isPosInMov(int [][] mov, int x, int y) {
 		for (int [] pos : mov) {
 			if (pos[0] == x && pos[1] == y) {
 				return true;
