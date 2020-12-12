@@ -76,13 +76,13 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 					}
 				}
 	
-				rt=new Rectangle2D.Double(xIni + (i*xOffSet), yIni + (yOffSet*(7-j)), xOffSet, yOffSet);
+				rt=new Rectangle2D.Double(xIni + ((7-i)*xOffSet), yIni + (yOffSet*(7-j)), xOffSet, yOffSet);
 				g2d.fill(rt);
 				
 				Image img = decodePeca(i, j);
 				
 				if(img != null) {
-					g2d.drawImage(img, (int) (xIni + (i*xOffSet) + (xOffSet/2 - imgHeight/2) ),
+					g2d.drawImage(img, (int) (xIni + ((7-i)*xOffSet) + (xOffSet/2 - imgHeight/2) ),
 							(int) (yIni + (yOffSet*(7-j)) + (yOffSet/2 - imgWidth/2)), (int) imgWidth, (int) imgHeight, this);
 				}
 				//System.out.println("x : " + xIni + (j*xOffSet) + " y: " + this.yIni + (yOffSet*i));

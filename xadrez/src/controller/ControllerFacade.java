@@ -90,6 +90,7 @@ public class ControllerFacade implements Observable{
 		int yPeca = (int) (y/yOffSet);
 		
 		yPeca = 7 - yPeca;
+		xPeca = 7 - xPeca;
 		
 		
 		if (isPecaClicked) {
@@ -114,7 +115,8 @@ public class ControllerFacade implements Observable{
 		}
 		
 		
-		ModelFacade.verificaRoqueCurto(xPeca, yPeca, defineVez(), movDisp);
+		movDisp = ModelFacade.verificaRoqueCurto(xPeca, yPeca, defineVez(), movDisp);
+		movDisp = ModelFacade.verificaRoqueLongo(xPeca, yPeca, defineVez(), movDisp);
 	    
 	    
 	    if (movDisp == null){

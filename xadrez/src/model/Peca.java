@@ -155,11 +155,23 @@ public abstract class Peca {
 		tab[x][y] = this;
 		
 		this.atualizaPos(x, y);
-		
+	
 		return p;
 	}
 	
 	public Peca simulaMovimento(int x, int y) {
+		if (this instanceof Rei || this instanceof Peao || this instanceof Torre) {
+			Peca[][] tab = Tabuleiro.getGameMatrix();
+			Peca p = tab[x][y];
+			
+			tab[this.x][this.y] = null;
+			tab[x][y] = this;
+			
+			this.atualizaPos(x, y);
+		
+			return p;
+		}
+		
 		return realizaMovimento(x, y);
 	}
 }

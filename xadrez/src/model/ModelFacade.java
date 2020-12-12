@@ -231,17 +231,25 @@ public class ModelFacade {
     	if (!(p instanceof Rei || p instanceof Torre)) 
     		return movDisp;
     	
+    	 System.out.println("Roque Curto!");
+    	
     	
         Peca[][] tab = Tabuleiro.getGameMatrix();
         int yRoque = (vez == 1) ? 0 : 7;
         
         Peca torrePerto = tab[7][yRoque];
-        Peca rei = tab[4][yRoque];
+        Peca rei = tab[3][yRoque];
         
         Boolean shouldMov = true;
         
-        if (!(torrePerto instanceof Torre && !((Torre) torrePerto).hasMoved) || !(rei instanceof Rei && !((Rei) rei).hasMoved))
+        if (!(torrePerto instanceof Torre) || ((Torre) torrePerto).hasMoved)
         	return movDisp;
+        
+        System.out.println("Roque Curto!");
+        if (!(rei instanceof Rei) || ((Rei) rei).hasMoved) 
+        	return movDisp;
+        
+        System.out.println("Roque Curto!");
         	
 	    //verificar se o rei nao esta em cheque
 	    for(int i = rei.x + 1; i < 7; i++) { 
@@ -255,6 +263,7 @@ public class ModelFacade {
     	
 	    if (shouldMov) {
 	 
+	    	System.out.println("Roque Curto!");
 	    	for (int [] pos: movDisp) {
 	    		newMovDisp[index] = pos.clone();
 	    		index++;
@@ -265,7 +274,7 @@ public class ModelFacade {
 	    		newMovDisp[index][1] = yRoque;
 	    	}
 	    	else {
-	    		newMovDisp[index][0] = 4;
+	    		newMovDisp[index][0] = 3;
 	    		newMovDisp[index][1] = yRoque;
 	    	}
 	    }
@@ -276,10 +285,13 @@ public class ModelFacade {
     
     public static void realizaRoqueCurto(int vez) {
     	 Peca[][] tab = Tabuleiro.getGameMatrix();
-         int yRoque = (vez == 1) ? 0 : 7;
+    	 int yRoque = (vez == 1) ? 0 : 7;
          
          Peca torrePerto = tab[7][yRoque];
-         Peca rei = tab[4][yRoque];
+         Peca rei = tab[3][yRoque];
+         
+         tab[5][yRoque] = null;
+         tab[6][yRoque] = null;
         
         tab[5][yRoque] = torrePerto;
         tab[6][yRoque] = rei;
@@ -294,18 +306,20 @@ public class ModelFacade {
     	if (!(p instanceof Rei || p instanceof Torre)) 
     		return movDisp;
     	
+    	 //System.out.println("Roque Longo!");
     	
         Peca[][] tab = Tabuleiro.getGameMatrix();
         int yRoque = (vez == 1) ? 0 : 7;
         
         Peca torrePerto = tab[0][yRoque];
-        Peca rei = tab[4][yRoque];
+        Peca rei = tab[3][yRoque];
         
         Boolean shouldMov = true;
         
         if (!(torrePerto instanceof Torre && !((Torre) torrePerto).hasMoved) || !(rei instanceof Rei && !((Rei) rei).hasMoved))
         	return movDisp;
         	
+        //System.out.println("Roque Longo!");
 	    //verificar se o rei nao esta em cheque
         for(int i = rei.x - 1; i > 0; i--) { 
 	        if(tab[i][yRoque] != null) { //verificar se o rei nao fica em cheque nas casas entre o rei e a torre
@@ -318,6 +332,7 @@ public class ModelFacade {
 	    
 	    if (shouldMov) {
 	 
+	    	//System.out.println("Roque Longo!");
 	    	for (int [] pos: movDisp) {
 	    		newMovDisp[index] = pos.clone();
 	    		index++;
@@ -328,7 +343,7 @@ public class ModelFacade {
 	    		newMovDisp[index][1] = yRoque;
 	    	}
 	    	else {
-	    		newMovDisp[index][0] = 4;
+	    		newMovDisp[index][0] = 3;
 	    		newMovDisp[index][1] = yRoque;
 	    	}
 	    }
@@ -339,10 +354,13 @@ public class ModelFacade {
     
     public static void realizaRoqueLongo(int vez) {
     	Peca[][] tab = Tabuleiro.getGameMatrix();
-        int yRoque = (vez == 1) ? 0 : 7;
+    	int yRoque = (vez == 1) ? 0 : 7;
         
         Peca torreLonge = tab[0][yRoque];
-        Peca rei = tab[4][yRoque];
+        Peca rei = tab[3][yRoque];
+        
+        tab[3][yRoque] = null;
+        tab[2][yRoque] = null;
         
         tab[3][yRoque] = torreLonge;
         tab[2][yRoque] = rei;
