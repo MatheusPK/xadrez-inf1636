@@ -17,6 +17,8 @@ public class ControllerFacade implements Observable{
 	public int [][] codeTab = new int[8][8]; //mudar pra private?
 	private int[][] movDisp;
 	private List<Observer> observerList=new ArrayList<Observer>();
+	private int clickedPecaX = -1;
+	private int clickedPecaY = -1;
 	
 	
 	
@@ -36,30 +38,23 @@ public class ControllerFacade implements Observable{
 	} 
 	
 	public void startController() {
-		if (true) {
-			rodada++;
-			realizaRodada();
-		}
+		proxRodada();
 	}
 
 	
-	private void realizaRodada() {
+	private void proxRodada() {
 		
+		rodada++;
 		ModelFacade.codificaTabuleiro(codeTab);
-		//view (passa codeTab)
 		ModelFacade.desenhaTabuleiro();
-		
 		movDisp = null;
 		
 		for(Observer o: observerList) {
-			if(o == null) {
-				System.out.println("oiasoidosioasido");
-			}
 			o.notify(this);
 		}
 		//View.atualizaMovDisp();
 		
-		int xPeca, yPeca, xDest, yDest, iPeca;
+//		int xPeca, yPeca, xDest, yDest, iPeca;
 		
 		
 //		do {
@@ -138,12 +133,23 @@ public class ControllerFacade implements Observable{
 	}
 	
 	public void verificaClick(int x, int y, double xOffSet, double yOffSet) {
+		
 		int xPeca = (int) (x/xOffSet);
 		int yPeca = (int) (y/yOffSet);
 		
 		yPeca = 7 - yPeca;
 		
-
+		if (clickedPecaX == -1 && clickedPecaY == -1) {
+			verificaMovDisp(xPeca, yPeca);
+		}
+		else {
+			selecionaMov(xPeca, yPeca);
+		}
+		//gambiarra(xPeca, yPeca);
+	}
+	
+	private void verificaMovDisp(int xPeca, int yPeca) {
+		
 		if (ModelFacade.isOutOfBounds(xPeca, yPeca)){
 			System.out.println("Clique inválido");
 			return;
@@ -155,40 +161,52 @@ public class ControllerFacade implements Observable{
 	    	System.out.println("Clique inválido");
 	    	return;
 		} 
+	 
+	    clickedPecaX = xPeca;
+	    clickedPecaY = yPeca;
 		
 		for(Observer o: observerList)
 			o.notify(this);
-		
-		//gambiarra(xPeca, yPeca);
 	}
 	
-	public void gambiarra(int xPeca, int yPeca)
+	public void selecionaMov(int xPeca, int yPeca)
 	{
-		int xDest, yDest, iPeca;
-		//view
-				System.out.printf("Movimentos disponiveis:\n");
-				if (movDisp.length == 0) { //vazio
-					System.out.printf("Nenhum movimento disponivel!\n");
-					//mudar controle (voltar na funcao)
-					realizaRodada();
-					return;
-				}
-				else {
-					for (int [] pos : movDisp) {
-						System.out.printf("(%d, %d)\n", pos[0], pos[1]);
-					}
-				}
+	
+		int iPeca;
+	
+//		if (movDisp.length == 0) { //vazio
+//			System.out.printf("Nenhum movimento disponivel!\n");
+//			clickedPecaX = -1;
+//		    clickedPecaY = -1;
+//			return;
+//		}
+		//else {
+		//	for (int [] pos : movDisp) {
+		//		System.out.printf("(%d, %d)\n", pos[0], pos[1]);
+		//	}
+		//}
 				
-				//view
-				do {
-					System.out.printf("Escolha pra qual casa movimentar: (x y)\n");
-					xDest = s.nextInt();
-					yDest = s.nextInt();
-				}while(ModelFacade.isOutOfBounds(xDest, yDest) || !inDisp(movDisp, xDest, yDest)); //certifica ponto valido e pertencente aos mov disp
+		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !inDisp(movDisp, xPeca, yPeca)){
+			System.out.printf("Movimento Inválido!\n");
+			clickedPecaX = -1;
+		    clickedPecaY = -1;
+			return;
+		} 
 				
-				
-				iPeca = ModelFacade.movRealiza(xPeca,yPeca, xDest, yDest);
-				//retorna iPeca pra view
+		iPeca = ModelFacade.movRealiza(clickedPecaX,clickedPecaY, xPeca, yPeca);//retorna iPeca pra view
+		
+		clickedPecaX = -1;
+	    clickedPecaY = -1;
+	    
+	    proxRodada();
+	    
+//	    ModelFacade.codificaTabuleiro(codeTab);
+//		ModelFacade.desenhaTabuleiro();
+//		movDisp = null;
+//		
+//		for(Observer o: observerList)
+//			o.notify(this);
+
 	}
 	
 }
