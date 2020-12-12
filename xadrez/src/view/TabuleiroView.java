@@ -16,7 +16,7 @@ import java.util.*;
 
 
 
-public class TabuleiroView extends JPanel implements MouseListener, Observer{
+public class TabuleiroView extends JPanel implements MouseListener, Observer, ActionListener{
 	
 	//Tabuleiro t = new Tabuleiro();
 	int nImagens = 12; 
@@ -33,6 +33,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 
 
 	int height, width;
+	private Boolean popUpActive = false;
 	
 	
 	public TabuleiroView(int height, int width) {
@@ -137,12 +138,64 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("oi");
+		if (popUpActive)
+			return;
 	
 		int x = e.getX();
 		int y = e.getY();
 		
 		ControllerFacade.getController().verificaClick(x, y, xOffSet, yOffSet);
+	}
+	
+	public void popUpPromo() {
+        
+        JFrame frame = new JFrame("Promoção Peão!");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        final Toolkit toolkit = frame.getToolkit();
+        JPopupMenu pm = new JPopupMenu();
+        
+        JMenuItem rainhaPromo = new JMenuItem("rainha");
+        JMenuItem bispoPromo = new JMenuItem("bispo");
+        JMenuItem torrePromo = new JMenuItem("torre");
+        JMenuItem cavaloPromo = new JMenuItem("cavalo");
+        
+        rainhaPromo.setName("5");
+        bispoPromo.setName("3");
+        torrePromo.setName("1");
+        cavaloPromo.setName("2");
+        
+        rainhaPromo.addActionListener(this);
+        bispoPromo.addActionListener(this);
+        torrePromo.addActionListener(this);
+        cavaloPromo.addActionListener(this);
+ 
+        
+        //System.out.println(rainhaPromo.getName());
+
+        pm.add(rainhaPromo);
+        pm.add(bispoPromo);
+        pm.add(torrePromo);
+        pm.add(cavaloPromo);
+        pm.setVisible(true);
+        
+        frame.getContentPane().add(pm);
+        frame.setSize(250, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        
+        popUpActive = true;
+    }
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		JMenuItem aux = (JMenuItem) e.getSource();
+		//System.out.println(aux.getName());
+		int iPeca = Integer.parseInt(aux.getName());
+		
+		
 	}
 
 }

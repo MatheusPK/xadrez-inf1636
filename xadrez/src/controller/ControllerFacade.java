@@ -131,7 +131,16 @@ public class ControllerFacade implements Observable{
 	    if (ModelFacade.verificaCheck(defineVez()*-1)) {
 			System.out.println("REI EM CHEQUE");
 		}
+	    
+	    if(ModelFacade.verificaPromocao(xPeca, yPeca)) {
+            ViewFacade.popUpPromo();
+            //ModelFacade.realizaPromocao(xPeca, yPeca, 2);
+        }
 	    proxRodada();
+	}
+	
+	public void selecionaPromocao() {
+		
 	}
 	
 }

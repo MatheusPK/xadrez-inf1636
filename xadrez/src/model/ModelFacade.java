@@ -105,4 +105,32 @@ public class ModelFacade {
 		}
 		return Tabuleiro.isCheck(PecaCor.Preto);
 	}
+	
+	//verifica se a peca a ser movida e peao e esta num local de promocao
+	public static Boolean verificaPromocao(int pecaX, int pecaY) {
+        Peca p = Tabuleiro.getPecaIn(pecaX, pecaY);
+        return ((pecaY == 0 || pecaY == 7) && p instanceof Peao);
+    }
+    
+	//muda peca no tabuleiro de acordo com a peca escolhida no popup
+    public static void realizaPromocao(int pecaX, int pecaY, int pecaNova) {
+        System.out.println("promovido");
+        Peca[][] tab = Tabuleiro.getGameMatrix();
+        PecaCor cor = Tabuleiro.getPecaIn(pecaX, pecaY).getCor();
+        
+        
+        if (pecaNova == 1) {
+            tab[pecaX][pecaY] = new Torre(cor, pecaX, pecaY);
+        }
+        else if (pecaNova == 2) {
+            tab[pecaX][pecaY] = new Cavalo(cor, pecaX, pecaY);
+        }
+        else if (pecaNova == 3) {
+            tab[pecaX][pecaY] = new Bispo(cor, pecaX, pecaY);
+        }
+        else if (pecaNova == 5) {
+            tab[pecaX][pecaY] = new Rainha(cor, pecaX, pecaY);
+        }
+                 
+    }
 }

@@ -4,8 +4,6 @@ import javax.swing.*;
 
 public class MainView extends JFrame{
 
-    
-
     public MainView(TabuleiroView tv, int DEFAULT_HEIGHT, int DEFAULT_WIDTH) {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension screenSize=tk.getScreenSize();
@@ -15,4 +13,6 @@ public class MainView extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().add(tv);
     }
+    
+    
 }
