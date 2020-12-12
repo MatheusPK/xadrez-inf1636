@@ -91,7 +91,7 @@ public class Tabuleiro {
 	public static Boolean isXeque(PecaCor cor) {
 		
 		Rei rei = null;
-		Boolean check = false;
+		Boolean xeque = false;
 		
 		for (Peca pecaArray[] : gameMatrix) {
 			for (Peca peca : pecaArray) {
@@ -105,34 +105,48 @@ public class Tabuleiro {
 			System.out.println("Erro: Rei não encontrado!");
 			return false;
 		}
-		
-		//rei.clearImpossibleMovs();
 	
 		for (Peca pecaArray[] : gameMatrix) {
 			for (Peca peca: pecaArray) {
 				if (peca != null && peca.cor != cor) {
 					int [][] movDisp = peca.movimentosDisponiveis();
-//					if (ModelFacade.isPosInDisp(movDisp, rei.x, rei.y)) {
-//						check = true;
-//					}
-					
 					for (int [] pos : movDisp) {
 						if (pos[0] == rei.x && pos[1] == rei.y) {
-							check = true;
+							xeque = true;
 						}
-						//rei.addImpossibleMov(pos[0], pos[1]);
 					}
 					
 				}
 			}
 		}
-		
-//		if (rei.movimentosDisponiveis().length == 0) {
-//			check = true;
-//		}
-		
-		return check;
+	
+		return xeque;
 	}
 	
-	
+	public static Boolean isXequeMate(PecaCor cor) {
+		
+		Boolean xequeMate = true;
+		for (Peca pecaArray[] : gameMatrix) {
+			for (Peca peca: pecaArray) {
+				if (peca != null && peca.cor == cor) {
+					int [][] movDisp = peca.movimentosDisponiveis();
+					int xPeca = peca.x;
+					int yPeca = peca.y;
+					for (int [] pos : movDisp) {
+						Peca pecaComida = peca.simulaMovimento(pos[0], pos[1]);
+						Boolean xeque = isXeque(cor);
+						peca.simulaMovimento(xPeca, yPeca);
+						if (pecaComida != null)
+							pecaComida.simulaMovimento(pecaComida.x, pecaComida.y);
+						
+						if (!xeque) {
+							xequeMate = false;
+						}
+					}
+					
+				}
+			}
+		}
+		return xequeMate;
+	}
 }

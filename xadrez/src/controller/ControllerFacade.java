@@ -16,6 +16,7 @@ public class ControllerFacade implements Observable{
 	private int rodada = 0;
 	private Boolean isPecaClicked = false;
 	private int isXeque = 0; //1 --> branco/ -1 --> preto
+	private int isXequeMate = 0; //1 --> branco/ -1 --> preto
 	
 	private int [][] codeTab = new int[8][8];
 	private int[][] movDisp;
@@ -73,6 +74,16 @@ public class ControllerFacade implements Observable{
 		if (ModelFacade.verificaXeque(defineVez())) {
 			isXeque = defineVez();
 		}
+		
+		isXequeMate = 0;
+		if (isXeque != 0) {
+			if (ModelFacade.verificaXequeMate(defineVez())) {
+				isXequeMate = defineVez();
+			}
+		}
+		
+		if (isXequeMate != 0)
+			System.out.println("XEQUE MATE!!!!");
 	}
 	
 	//branco -> 1 preto -> -1
@@ -115,8 +126,8 @@ public class ControllerFacade implements Observable{
 		}
 		
 		
-		movDisp = ModelFacade.verificaRoqueCurto(xPeca, yPeca, defineVez(), movDisp);
-		movDisp = ModelFacade.verificaRoqueLongo(xPeca, yPeca, defineVez(), movDisp);
+		//movDisp = ModelFacade.verificaRoqueCurto(xPeca, yPeca, defineVez(), movDisp);
+		//movDisp = ModelFacade.verificaRoqueLongo(xPeca, yPeca, defineVez(), movDisp);
 	    
 	    
 	    if (movDisp == null){

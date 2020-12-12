@@ -72,9 +72,11 @@ public class ModelFacade {
 		int xPeca = peca.x;
 		int yPeca = peca.y;
 		
-		peca.simulaMovimento(pos[0], pos[1]);
+		Peca pecaComida = peca.simulaMovimento(pos[0], pos[1]);
 		Boolean xeque = verificaXeque(vez);
 		peca.simulaMovimento(xPeca, yPeca);
+		if (pecaComida != null)
+			pecaComida.simulaMovimento(pecaComida.x, pecaComida.y);
 	
 		return xeque;
 	}
@@ -177,13 +179,21 @@ public class ModelFacade {
 		return false;
 	}
 	
-	//retorna se o rei da cor (1 ou -1) ta em cheque
+	//retorna se o rei da cor (1 ou -1) ta em xeque
 	public static Boolean verificaXeque(int cor) {
 		if (cor == 1) {
 			return Tabuleiro.isXeque(PecaCor.Branco);
 		}
 		return Tabuleiro.isXeque(PecaCor.Preto);
 	}
+	
+	//retorna se o rei da cor (1 ou -1) ta em xequeMate
+		public static Boolean verificaXequeMate(int cor) {
+			if (cor == 1) {
+				return Tabuleiro.isXequeMate(PecaCor.Branco);
+			}
+			return Tabuleiro.isXequeMate(PecaCor.Preto);
+		}
 	
 	//verifica se a peca a ser movida e peao e esta num local de promocao
 	public static Boolean verificaPromocao(int pecaX, int pecaY) {
