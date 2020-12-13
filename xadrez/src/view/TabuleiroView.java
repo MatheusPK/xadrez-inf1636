@@ -1,6 +1,6 @@
 package view;
 
-import controller.*;//mudar
+//import controller.*;
 
 import java.awt.*;
 
@@ -15,7 +15,7 @@ import java.util.*;
 import java.lang.Math.*;
 
 
-class TabuleiroView extends JPanel implements MouseListener, Observer, ActionListener{
+class TabuleiroView extends JPanel implements MouseListener, Observer, Observable, ActionListener{
 	
 	//Tabuleiro t = new Tabuleiro();
 	int nImagens = 12; 
@@ -24,6 +24,9 @@ class TabuleiroView extends JPanel implements MouseListener, Observer, ActionLis
 	private int[][] movDisp;
 	private int isXequeMate;
 	public Boolean isFinished = false;
+	
+	public Observer controllerObserver;
+	public Object [] controllerDados;
 	
 	Observable obs;
 	Image img;
@@ -158,13 +161,25 @@ class TabuleiroView extends JPanel implements MouseListener, Observer, ActionLis
 		
 		 if(e.getButton() == MouseEvent.BUTTON3) {
 	            // escreve no arquivo
-	            ControllerFacade.getController().salvaJogo();
+	            //ControllerFacade.getController().salvaJogo();
+	            controllerDados = new Object[1];
+	    		controllerDados[0] = 1;
+	    		controllerObserver.notify(this);
+	    		return;
 	        }
 	
 		int x = e.getX();
 		int y = e.getY();
 		
-		ControllerFacade.getController().verificaClick(x, y, xOffSet, yOffSet);
+		//ControllerFacade.getController().verificaClick(x, y, xOffSet, yOffSet);
+		controllerDados = new Object[5];
+		controllerDados[0] = 2;
+		controllerDados[1] = x;
+		controllerDados[2] = y;
+		controllerDados[3] = xOffSet;
+		controllerDados[4] = yOffSet;
+		controllerObserver.notify(this);
+		
 	}
 	
 	public void popUpPromo() {
@@ -216,7 +231,11 @@ class TabuleiroView extends JPanel implements MouseListener, Observer, ActionLis
 		int iPeca = Integer.parseInt(aux.getName());
 		popUpFrame.dispose();
 		popUpFrame = null;
-		ControllerFacade.getController().selecionaPromocao(iPeca);
+		//ControllerFacade.getController().selecionaPromocao(iPeca);
+		controllerDados = new Object[2];
+		controllerDados[0] = 3;
+		controllerDados[1] = iPeca;
+		controllerObserver.notify(this);
 	}
 	
 	private void endGame(int xequeMate) {
@@ -237,7 +256,31 @@ class TabuleiroView extends JPanel implements MouseListener, Observer, ActionLis
 	}
 	
 	public void escolheArquivo() {
-		ControllerFacade.getController().carregaJogo();
+		//ControllerFacade.getController().carregaJogo();
+		controllerDados = new Object[1];
+		controllerDados[0] = 4;
+		controllerObserver.notify(this);
+	}
+
+
+	@Override
+	public void addObserver(Observer o) {
+		// TODO Auto-generated method stub
+		controllerObserver = o;
+	}
+
+
+	@Override
+	public void removeObserver(Observer o) {
+		// TODO Auto-generated method stub
+		controllerObserver = null;
+	}
+
+
+	@Override
+	public Object get() {
+		// TODO Auto-generated method stub
+		return controllerDados;
 	}
 
 }

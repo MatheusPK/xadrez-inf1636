@@ -13,7 +13,7 @@ import javax.swing.JFileChooser;
 
 
 
-public class ControllerFacade implements Observable{
+public class ControllerFacade implements Observable, Observer{
 	
 	
 	static private ControllerFacade c = null;
@@ -32,6 +32,7 @@ public class ControllerFacade implements Observable{
 		ModelFacade.startGame();
 		ViewFacade.startView();
 		addObserver(ViewFacade.tabView);
+		ViewFacade.tvAddObserver(this);
 	}
 	
 	public static ControllerFacade getController() {
@@ -241,6 +242,33 @@ public class ControllerFacade implements Observable{
         proxRodada();
     }
 
-
+	@Override
+	public void notify(Observable o) {
+		// TODO Auto-generated method stub
+		Object [] dados = (Object []) o.get();
+		int instrucao = (int) dados[0];
+		if (instrucao == 1) {
+			salvaJogo();
+			return;
+		}
+		else if (instrucao == 2) {
+			int x = (int) dados[1];
+			int y = (int) dados[2];
+			double xOffSet = (double) dados[3];
+			double yOffSet = (double) dados[4];
+			verificaClick(x, y, xOffSet, yOffSet);
+			return;
+		}
+		else if (instrucao == 3) {
+			int iPeca = (int) dados[1];
+			selecionaPromocao(iPeca);
+			return;
+		}
+		else if (instrucao == 4) {
+			carregaJogo();
+			return;
+		}
+		
+	}
 	
 }

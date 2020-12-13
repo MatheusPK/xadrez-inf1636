@@ -17,4 +17,8 @@ public class ViewFacade {
 	static public void popUpPromo() {
         tabView.popUpPromo();     
     }
+	
+	static public void tvAddObserver(Observer o) {
+		tabView.addObserver(o);
+	}
 }
