@@ -25,6 +25,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 	private int[][] codeTab;
 	private int[][] movDisp;
 	private int isXequeMate;
+	public Boolean isFinished = false;
 	
 	Observable obs;
 	Image img;
@@ -141,6 +142,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 		
 		if (isXequeMate != 0) {
 			endGame(isXequeMate);
+			isFinished = true;
 			return;
 		}
 	}
@@ -221,6 +223,8 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 	}
 	
 	private void endGame(int xequeMate) {
+		if (isFinished)
+			return;
 		if (xequeMate == 1) {
 			JOptionPane.showMessageDialog(this, "Xeque Mate: Preto Ganhou!");
 		}

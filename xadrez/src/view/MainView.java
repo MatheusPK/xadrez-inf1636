@@ -36,6 +36,7 @@ public class MainView extends JFrame{
                 getContentPane().remove(f);
                 repaint(); //provavelmente causa o bug do double click
                 getContentPane().add(tv); 
+                tv.isFinished = false;
             }  
         });  
         
@@ -44,6 +45,7 @@ public class MainView extends JFrame{
             	getContentPane().remove(f);
             	getContentPane().add(tv); 
                 tv.escolheArquivo();
+                tv.isFinished = false;
             }  
         }); 
         f.setSize(400,400);  
@@ -61,7 +63,6 @@ public class MainView extends JFrame{
     	getContentPane().remove(tv);
     	getContentPane().add(menuInicial); 
     	repaint();
-    	
     }
     
     
