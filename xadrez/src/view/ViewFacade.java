@@ -8,7 +8,7 @@ public class ViewFacade {
 	static public void startView() {
 		int DEFAULT_WIDTH = 800;
 	    int DEFAULT_HEIGHT = 800;
-		tabView = new TabuleiroView(DEFAULT_HEIGHT, DEFAULT_WIDTH);
+		tabView = new TabuleiroView(DEFAULT_HEIGHT - 32, DEFAULT_WIDTH - 15);
 		mainView = new MainView(tabView, DEFAULT_HEIGHT, DEFAULT_WIDTH);
 		mainView.setTitle("Xadrez - INF1636");
 		mainView.setVisible(true);

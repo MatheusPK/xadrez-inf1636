@@ -42,8 +42,8 @@ public class ControllerFacade implements Observable{
 	} 
 	
 	public void startController() {
-		//proxRodada();
-		carregaJogo();
+		proxRodada();
+	    //carregaJogo();
 	}
 
 	public void addObserver(Observer o) {
@@ -204,7 +204,6 @@ public class ControllerFacade implements Observable{
             fw.flush();
             fw.close();
         } catch(Exception IOException) {} finally {}
-        System.out.println(s);
     }
 	
 	public void carregaJogo() {
@@ -219,7 +218,6 @@ public class ControllerFacade implements Observable{
                         out= out + scan.nextLine();
                     }
                 } catch(FileNotFoundException e) {} finally {}
-                System.out.println(out);
         
         String[] result = out.split(" "); 
         
