@@ -223,17 +223,20 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 	private void endGame(int xequeMate) {
 		if (xequeMate == 1) {
 			JOptionPane.showMessageDialog(this, "Xeque Mate: Preto Ganhou!");
-			System.exit(0); //ir pra tela inicial
 		}
 		else if (xequeMate == -1) {
 			JOptionPane.showMessageDialog(this, "Xeque Mate: Branco Ganhou!");
-			System.exit(0);
 		}
 		else {
 			JOptionPane.showMessageDialog(this, "Congelamento: Empate!");
-			System.exit(0);
 		}
-			
+		
+		ViewFacade.mainView.voltaMenuInicial();
+	
+	}
+	
+	public void escolheArquivo() {
+		ControllerFacade.getController().carregaJogo();
 	}
 
 }

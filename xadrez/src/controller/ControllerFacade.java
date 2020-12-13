@@ -98,6 +98,8 @@ public class ControllerFacade implements Observable{
 		if (isXequeMate != 0) {
 			for(Observer o: observerList)
 				o.notify(this);
+			
+			restartJogo();
 		}
 	}
 	
@@ -188,7 +190,6 @@ public class ControllerFacade implements Observable{
 	
 	public void restartJogo() {
 		ModelFacade.startGame();
-		ViewFacade.startView();
 		proxRodada();
 	}
 	
@@ -240,5 +241,7 @@ public class ControllerFacade implements Observable{
         ModelFacade.carregaTabuleiro(codeTab);
         proxRodada();
     }
+
+
 	
 }

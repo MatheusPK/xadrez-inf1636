@@ -149,4 +149,8 @@ public class Tabuleiro {
 		}
 		return xequeMate;
 	}
+	
+	public static void restartTabuleiro() {
+		gameMatrix = new Peca[8][8];
+	}
 }

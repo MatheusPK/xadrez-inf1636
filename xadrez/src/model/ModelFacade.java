@@ -9,6 +9,7 @@ public class ModelFacade {
 	private static Peca peaoPromo;
 	
 	public static void startGame() {
+		Tabuleiro.restartTabuleiro();
 		Peca.PecaFactory();
 	}
 	

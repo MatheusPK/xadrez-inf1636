@@ -1,11 +1,16 @@
 package view;
+
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class MainView extends JFrame{
+	
+	private JPanel menuInicial;
+	private JPanel tv;
 
     public MainView(TabuleiroView tv, int DEFAULT_HEIGHT, int DEFAULT_WIDTH) {
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -28,7 +33,6 @@ public class MainView extends JFrame{
         
         novoJogo.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){ 
-                System.out.println("oi");
                 getContentPane().remove(f);
                 repaint(); //provavelmente causa o bug do double click
                 getContentPane().add(tv); 
@@ -36,17 +40,30 @@ public class MainView extends JFrame{
         });  
         
         carregarJogo.addActionListener(new ActionListener(){  
-            public void actionPerformed(ActionEvent e){  
-                
+            public void actionPerformed(ActionEvent e){ 
+            	getContentPane().remove(f);
+            	getContentPane().add(tv); 
+                tv.escolheArquivo();
             }  
         }); 
         f.setSize(400,400);  
         f.setLayout(null);
         f.setVisible(true);
         add(f);
+        
+        menuInicial = f;
+        this.tv = tv;
         //getContentPane().add(f);
         //getContentPane().add(tv);
     }
+    
+    public void voltaMenuInicial() {
+    	getContentPane().remove(tv);
+    	getContentPane().add(menuInicial); 
+    	repaint();
+    	
+    }
+    
     
     
 }
