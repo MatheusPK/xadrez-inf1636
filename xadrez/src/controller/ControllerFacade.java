@@ -49,9 +49,10 @@ public class ControllerFacade implements Observable{
 	}
 	
 	public Object get() {
-		Object dados[] = new Object[2];
+		Object dados[] = new Object[3];
 		dados[0] = codeTab;
 		dados[1] = movDisp;
+		dados[2] = isXequeMate;
 		return dados;
 	}
 	
@@ -82,8 +83,10 @@ public class ControllerFacade implements Observable{
 			}
 		}
 		
-		if (isXequeMate != 0)
-			System.out.println("XEQUE MATE!!!!");
+		if (isXequeMate != 0) {
+			for(Observer o: observerList)
+				o.notify(this);
+		}
 	}
 	
 	//branco -> 1 preto -> -1
@@ -118,7 +121,7 @@ public class ControllerFacade implements Observable{
 		}
 		
 		if (isXeque == defineVez()){
-			System.out.println("XEQUE - controller");
+			//System.out.println("XEQUE - controller");
 			movDisp = ModelFacade.movDispXeque(xPeca, yPeca, defineVez());
 		}
 		else {

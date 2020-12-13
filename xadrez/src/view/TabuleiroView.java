@@ -23,6 +23,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 	double xIni = 0, yIni = 0, xOffSet, yOffSet, imgHeight, imgWidth;
 	private int[][] codeTab;
 	private int[][] movDisp;
+	private int isXequeMate;
 	
 	Observable obs;
 	Image img;
@@ -128,10 +129,17 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 		Object[] dados = (Object []) obs.get();
 		codeTab = (int [][]) dados[0];
 		movDisp = (int [][]) dados[1];
+		isXequeMate = (int) dados[2];
 		
 		if (!hasInit)
 			hasInit = true;
+		
 		repaint();
+		
+		if (isXequeMate != 0) {
+			endGame(isXequeMate);
+			return;
+		}
 	}
 	
 
@@ -202,6 +210,16 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 		popUpFrame.dispose();
 		popUpFrame = null;
 		ControllerFacade.getController().selecionaPromocao(iPeca);
+	}
+	
+	private void endGame(int xequeMate) {
+		if (xequeMate == 1) {
+			JOptionPane.showMessageDialog(this, "Xeque Mate: Preto Ganhou!");
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Xeque Mate: Branco Ganhou!");
+		}
+			
 	}
 
 }
