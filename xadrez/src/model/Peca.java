@@ -8,7 +8,7 @@ enum PecaCor {
 	Preto, Branco;
 }
 
-public abstract class Peca {
+abstract class Peca {
 	//cor da peca
 	protected PecaCor cor; 
 	

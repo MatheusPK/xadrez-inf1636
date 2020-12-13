@@ -43,7 +43,6 @@ public class ControllerFacade implements Observable{
 	
 	public void startController() {
 		proxRodada();
-	    //carregaJogo();
 	}
 
 	public void addObserver(Observer o) {

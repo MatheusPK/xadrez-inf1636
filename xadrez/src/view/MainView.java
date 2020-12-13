@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class MainView extends JFrame{
+class MainView extends JFrame{
 	
 	private JPanel menuInicial;
 	private JPanel tv;

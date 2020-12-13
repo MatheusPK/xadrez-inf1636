@@ -1,6 +1,5 @@
 package view;
 
-import model.*; //mudar
 import controller.*;//mudar
 
 import java.awt.*;
@@ -16,8 +15,7 @@ import java.util.*;
 import java.lang.Math.*;
 
 
-
-public class TabuleiroView extends JPanel implements MouseListener, Observer, ActionListener{
+class TabuleiroView extends JPanel implements MouseListener, Observer, ActionListener{
 	
 	//Tabuleiro t = new Tabuleiro();
 	int nImagens = 12; 
@@ -48,8 +46,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 		this.yOffSet = this.height/8;
 		this.imgHeight = yOffSet - 10;
 		this.imgWidth = xOffSet - 10;
-		
-		Peca.PecaFactory();
+	
 		loadImages();
 		addMouseListener(this);
 	}

@@ -1,6 +1,6 @@
 package model;
 
-public class Tabuleiro {
+class Tabuleiro {
 	private static Peca[][] gameMatrix = new Peca[8][8];
 
 	//retorna referencia para a matriz estatica
