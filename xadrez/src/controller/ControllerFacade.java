@@ -113,7 +113,7 @@ public class ControllerFacade implements Observable{
 	private void verificaMovDisp(int xPeca, int yPeca) {
 		
 		if (ModelFacade.isOutOfBounds(xPeca, yPeca)){
-			//System.out.println("Clique invï¿½lido");
+			//System.out.println("Clique inválido");
 			return;
 		}
 		
@@ -127,7 +127,7 @@ public class ControllerFacade implements Observable{
 		
 		
 		movDisp = ModelFacade.verificaRoqueCurto(xPeca, yPeca, defineVez(), movDisp);
-		movDisp = ModelFacade.verificaRoqueLongo(xPeca, yPeca, defineVez(), movDisp);
+//		movDisp = ModelFacade.verificaRoqueLongo(xPeca, yPeca, defineVez(), movDisp);
 	    
 	    
 	    if (movDisp == null){
@@ -150,7 +150,7 @@ public class ControllerFacade implements Observable{
 			return;
 		}
 		if (ModelFacade.isOutOfBounds(xPeca, yPeca) || !ModelFacade.isPosInMov(movDisp, xPeca, yPeca)){
-			//System.out.printf("Movimento Invï¿½lido!\n");
+			//System.out.printf("Movimento Inválido!\n");
 			return;
 		} 
 				
