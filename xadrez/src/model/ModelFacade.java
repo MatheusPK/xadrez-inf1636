@@ -245,9 +245,7 @@ public class ModelFacade {
         Peca p = Tabuleiro.getPecaIn(xPeca, yPeca);
         if (!(p instanceof Rei || p instanceof Torre)) 
             return movDisp;
-        
-        
-        
+      
         Peca[][] tab = Tabuleiro.getGameMatrix();
         int yRoque = (vez == 1) ? 0 : 7;
         
@@ -261,26 +259,25 @@ public class ModelFacade {
         
         if (!(rei instanceof Rei) || ((Rei) rei).hasMoved) 
             return movDisp;
-        
-        System.out.println("Roque Curto!");
             
         //verificar se o rei nao esta em cheque
-        for(int i = rei.x - 1; i > 0; i--) { 
-            System.out.printf("teste roque curto x: %d, y: %d\n", i, yRoque);
-            if(tab[i][yRoque] != null) { //verificar se o rei nao fica em cheque nas casas entre o rei e a torre
-                 shouldMov = false;
+        for(int i = rei.x; i > 0; i--) { 
+            int [] pos = new int[2];
+            pos[0] = i;
+            pos[1] = yRoque;
+            if((i < rei.x && tab[i][yRoque] != null) || simulateMov(pos, rei, vez)) { //verificar se o rei nao fica em cheque nas casas entre o rei e a torre
+            	 shouldMov = false;
                  return movDisp;
             }
         }
-        System.out.println("acabei o teste");
         
         
+       
         if (shouldMov) {
             
             int [][] newMovDisp = new int [movDisp.length + 1][2];
             int index = 0;
      
-            System.out.println("Roque Curto!");
             for (int [] pos: movDisp) {
                 newMovDisp[index] = pos.clone();
                 index++;
@@ -327,9 +324,7 @@ public class ModelFacade {
         Peca p = Tabuleiro.getPecaIn(xPeca, yPeca);
     	if (!(p instanceof Rei || p instanceof Torre)) 
     		return movDisp;
-    	
-    	 System.out.println("Roque Longo!");
-    	
+
         Peca[][] tab = Tabuleiro.getGameMatrix();
         int yRoque = (vez == 1) ? 0 : 7;
         
@@ -344,21 +339,21 @@ public class ModelFacade {
         if (!(rei instanceof Rei) || ((Rei) rei).hasMoved) 
             return movDisp;
         	
-        System.out.println("Roque Longo!");
 	    //verificar se o rei nao esta em cheque
-        for(int i = rei.x + 1; i < 7; i++) { //verificar dps para <= 7 para ver se a posicao da torre pode ser cheuqe pro rei 
-        	System.out.printf("teste roque longo x: %d, y: %d\n", i, yRoque);
-	        if(tab[i][yRoque] != null) { //verificar se o rei nao fica em cheque nas casas entre o rei e a torre
-	             shouldMov = false;
+        for(int i = rei.x; i < 7; i++) { //verificar dps para <= 7 para ver se a posicao da torre pode ser cheuqe pro rei 
+        	int [] pos = new int[2];
+            pos[0] = i;
+            pos[1] = yRoque;
+        	if((i > rei.x && tab[i][yRoque] != null) || (i < 6 && simulateMov(pos, rei, vez))) { //verificar se o rei nao fica em cheque nas casas entre o rei e a torre
+        		 shouldMov = false;
+	             return movDisp;
 	        }
 	    }
 	    
 	    if (shouldMov) {
-	    	 System.out.println("passei no teste");
 	    	int [][] newMovDisp = new int [movDisp.length + 1][2];
 	     	int index = 0;
 	 
-	    	//System.out.println("Roque Longo!");
 	    	for (int [] pos: movDisp) {
 	    		newMovDisp[index] = pos.clone();
 	    		index++;
