@@ -156,6 +156,11 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 		// TODO Auto-generated method stub
 		if (popUpFrame != null)
 			return;
+		
+		 if(e.getButton() == MouseEvent.BUTTON3) {
+	            // escreve no arquivo
+	            ControllerFacade.getController().salvaJogo();
+	        }
 	
 		int x = e.getX();
 		int y = e.getY();

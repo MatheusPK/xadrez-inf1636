@@ -5,7 +5,11 @@ import view.*;
 import view.Observable;
 import view.Observer;
 
+import java.io.FileWriter;
 import java.util.*;
+
+import javax.swing.JFileChooser;
+
 
 
 public class ControllerFacade implements Observable{
@@ -173,5 +177,26 @@ public class ControllerFacade implements Observable{
 		ModelFacade.realizaPromocao(iPeca);
 		proxRodada();
 	}
+	
+	public void salvaJogo() {
+        ModelFacade.codificaTabuleiro(codeTab);
+        String s = "";
+        s = s.concat(Integer.toString(defineVez()));
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0;j < 8; j++) {
+                s = s.concat(" " + Integer.toString(codeTab[i][j]));
+            }
+        }
+        
+        JFileChooser chooser  = new JFileChooser();
+        int retval = chooser.showSaveDialog(null);
+        try{
+            FileWriter fw = new FileWriter(chooser.getSelectedFile()+".txt");
+            fw.write(s);
+            fw.flush();
+            fw.close();
+        } catch(Exception IOException) {} finally {}
+        System.out.println(s);
+    }
 	
 }

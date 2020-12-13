@@ -123,7 +123,7 @@ public class ModelFacade {
 		return Tabuleiro.isOutOfBounds(x, y);
 	}
 	
-	//transoforma o tipo da peca (classe e cor) em um inteiro correspondente
+	//transoforma o tipo da peca (classe e cor) em um inteiro correspondente/ *10 = hasMoved
 	private static int codificaPeca(Peca p) {
 		int i;
 		if (p == null) {
@@ -162,6 +162,64 @@ public class ModelFacade {
 		}
 		
 		return i;
+	}
+	
+	//transoforma o tipo da peca (classe e cor) em um inteiro correspondente/ *10 = hasMoved
+		private static Peca decodificaPeca(int iPeca, int i, int j) {
+			
+			if (iPeca == 0) {
+				return null;
+			}
+			
+			Peca p;
+			PecaCor cor = (iPeca > 0) ? PecaCor.Branco : PecaCor.Preto;
+			
+			if (iPeca < 0) {
+				iPeca *= -1;
+			}
+			
+			if (i == 1 || i == 10) {
+				p = new Torre(cor, i, j);
+				if (i >= 10)
+					((Torre)p).hasMoved = true;
+			}
+			else if (i == 2) {
+				p = new Cavalo(cor, i, j);
+			}
+			else if (i == 3) {
+				p = new Bispo(cor, i, j);
+			}
+			else if (i == 4 || i == 40) {
+				p = new Rei(cor, i, j);
+				if (i >= 10)
+					((Rei)p).hasMoved = true;
+			}
+			else if (i == 5) {
+				p = new Rainha(cor, i, j);
+			}
+			else if (i == 6 || i == 60) {
+				p = new Peao(cor, i, j);
+				if (i >= 10)
+					((Peao)p).hasMoved = true;
+			}
+			else {
+				return null;
+			}
+			
+			return p;
+		}
+	
+	
+	
+	private static void carregaTabuleiro(int [][] codeTab) {
+		Peca [][] tab = Tabuleiro.getGameMatrix();
+		
+		for(int i = 0; i < 8; i ++) {
+			for(int j = 0; j < 8; j ++) {
+				tab[i][j] = null;
+				tab[i][j] = decodificaPeca(codeTab[i][j], i, j);
+			}
+		}
 	}
 	
 	//retorna tabuleiro codificado
