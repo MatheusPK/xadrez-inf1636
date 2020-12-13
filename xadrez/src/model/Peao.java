@@ -2,7 +2,7 @@ package model;
 
 class Peao extends Peca{
 	
-	private Boolean hasMoved = false;
+	protected Boolean hasMoved = false;
 	
 	protected Peao(PecaCor cor) {
 		super(cor);

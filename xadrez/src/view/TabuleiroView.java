@@ -13,6 +13,7 @@ import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.lang.Math.*;
 
 
 
@@ -115,6 +116,8 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 		if (cod == 0) {
 			return null;
 		}
+		if (Math.abs(cod) >= 10)
+			cod /= 10;
 		
 		if (cod > 0) {
 			return imgPecas.get(decodeArrayBranco[cod-1]);
@@ -215,9 +218,11 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 	private void endGame(int xequeMate) {
 		if (xequeMate == 1) {
 			JOptionPane.showMessageDialog(this, "Xeque Mate: Preto Ganhou!");
+			System.exit(0); //ir pra tela inicial
 		}
 		else {
 			JOptionPane.showMessageDialog(this, "Xeque Mate: Branco Ganhou!");
+			System.exit(0);
 		}
 			
 	}

@@ -131,6 +131,8 @@ public class ModelFacade {
 		}
 		else if (p instanceof Torre) {
 			i = 1;
+			if (((Torre)p).hasMoved)
+				i*= 10;
 		}
 		else if (p instanceof Cavalo) {
 			i = 2;
@@ -140,12 +142,16 @@ public class ModelFacade {
 		}
 		else if (p instanceof Rei) {
 			i = 4;
+			if (((Rei)p).hasMoved)
+				i*= 10;
 		}
 		else if (p instanceof Rainha) {
 			i = 5;
 		}
 		else if (p instanceof Peao) {
 			i = 6;
+			if (((Peao)p).hasMoved)
+				i*= 10;
 		}
 		else {
 			return 0;
