@@ -127,7 +127,7 @@ public class ControllerFacade implements Observable{
 		
 		
 		movDisp = ModelFacade.verificaRoqueCurto(xPeca, yPeca, defineVez(), movDisp);
-//		movDisp = ModelFacade.verificaRoqueLongo(xPeca, yPeca, defineVez(), movDisp);
+		movDisp = ModelFacade.verificaRoqueLongo(xPeca, yPeca, defineVez(), movDisp);
 	    
 	    
 	    if (movDisp == null){
