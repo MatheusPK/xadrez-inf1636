@@ -5,6 +5,7 @@ import view.*;
 import view.Observable;
 import view.Observer;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.*;
 
@@ -41,7 +42,8 @@ public class ControllerFacade implements Observable{
 	} 
 	
 	public void startController() {
-		proxRodada();
+		//proxRodada();
+		carregaJogo();
 	}
 
 	public void addObserver(Observer o) {
@@ -178,10 +180,16 @@ public class ControllerFacade implements Observable{
 		proxRodada();
 	}
 	
+	public void restartJogo() {
+		ModelFacade.startGame();
+		ViewFacade.startView();
+		proxRodada();
+	}
+	
 	public void salvaJogo() {
         ModelFacade.codificaTabuleiro(codeTab);
         String s = "";
-        s = s.concat(Integer.toString(defineVez()));
+        s = s.concat(Integer.toString(rodada));
         for(int i = 0; i < 8; i++) {
             for(int j = 0;j < 8; j++) {
                 s = s.concat(" " + Integer.toString(codeTab[i][j]));
@@ -197,6 +205,36 @@ public class ControllerFacade implements Observable{
             fw.close();
         } catch(Exception IOException) {} finally {}
         System.out.println(s);
+    }
+	
+	public void carregaJogo() {
+        
+        JFileChooser chooser  = new JFileChooser();
+        int retval = chooser.showOpenDialog(null);
+        String out="";
+                try{
+                    Scanner scan = new Scanner(chooser.getSelectedFile());
+                    
+                    while(scan.hasNextLine()) {
+                        out= out + scan.nextLine();
+                    }
+                } catch(FileNotFoundException e) {} finally {}
+                System.out.println(out);
+        
+        String[] result = out.split(" "); 
+        
+        rodada = Integer.parseInt(result[0]) - 1;
+        
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0;j < 8; j++) {
+            	int index = (i*8)+j + 1;
+            	
+            	codeTab[i][j] = Integer.parseInt(result[index]);
+            }
+        }
+        
+        ModelFacade.carregaTabuleiro(codeTab);
+        proxRodada();
     }
 	
 }

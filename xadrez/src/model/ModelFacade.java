@@ -166,7 +166,7 @@ public class ModelFacade {
 	
 	//transoforma o tipo da peca (classe e cor) em um inteiro correspondente/ *10 = hasMoved
 		private static Peca decodificaPeca(int iPeca, int i, int j) {
-			
+		
 			if (iPeca == 0) {
 				return null;
 			}
@@ -178,28 +178,28 @@ public class ModelFacade {
 				iPeca *= -1;
 			}
 			
-			if (i == 1 || i == 10) {
+			if (iPeca == 1 || iPeca == 10) {
 				p = new Torre(cor, i, j);
-				if (i >= 10)
+				if (iPeca >= 10)
 					((Torre)p).hasMoved = true;
 			}
-			else if (i == 2) {
+			else if (iPeca == 2) {
 				p = new Cavalo(cor, i, j);
 			}
-			else if (i == 3) {
+			else if (iPeca == 3) {
 				p = new Bispo(cor, i, j);
 			}
-			else if (i == 4 || i == 40) {
+			else if (iPeca == 4 || iPeca == 40) {
 				p = new Rei(cor, i, j);
-				if (i >= 10)
+				if (iPeca >= 10)
 					((Rei)p).hasMoved = true;
 			}
-			else if (i == 5) {
+			else if (iPeca == 5) {
 				p = new Rainha(cor, i, j);
 			}
-			else if (i == 6 || i == 60) {
+			else if (iPeca == 6 || iPeca == 60) {
 				p = new Peao(cor, i, j);
-				if (i >= 10)
+				if (iPeca >= 10)
 					((Peao)p).hasMoved = true;
 			}
 			else {
@@ -211,7 +211,7 @@ public class ModelFacade {
 	
 	
 	
-	private static void carregaTabuleiro(int [][] codeTab) {
+	public static void carregaTabuleiro(int [][] codeTab) {
 		Peca [][] tab = Tabuleiro.getGameMatrix();
 		
 		for(int i = 0; i < 8; i ++) {
