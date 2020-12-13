@@ -88,6 +88,12 @@ public class ControllerFacade implements Observable{
 				isXequeMate = defineVez();
 			}
 		}
+		else {
+			if (ModelFacade.verificaXequeMate(defineVez())) {
+				isXequeMate = 2;
+			}
+		}
+		
 		
 		if (isXequeMate != 0) {
 			for(Observer o: observerList)
