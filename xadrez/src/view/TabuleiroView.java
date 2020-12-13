@@ -230,7 +230,7 @@ public class TabuleiroView extends JPanel implements MouseListener, Observer, Ac
 			System.exit(0);
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "Congelamento!");
+			JOptionPane.showMessageDialog(this, "Congelamento: Empate!");
 			System.exit(0);
 		}
 			
